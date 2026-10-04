@@ -1,0 +1,23 @@
+from_is,to_is,role,role_source,context_text,data_provenance
+SYN IS 90101,SYN IS 90701,test_method,curated,"Clause 8.2: Each tube shall be hydrostatically tested at the manufacturer's works in accordance with SYN IS 90701 without showing any sign of leakage or weeping.",SYNTHETIC
+SYN IS 90101,SYN IS 90702,test_method,curated,"Clause 6.4: For galvanized tubes, the zinc coating mass shall be determined in accordance with SYN IS 90702 and shall not be less than 400 g/m2.",SYNTHETIC
+SYN IS 90101,SYN IS 90703,terminology,curated,"Clause 3.1: For the purpose of this standard, the definitions of nominal bore, medium grade and heavy grade given in SYN IS 90703 shall apply.",SYNTHETIC
+SYN IS 90101,SYN IS 90704,installation,rule,"Clause 11.1: Field trenching, laying, jointing and site pressure testing of mild steel and GI tubes shall conform to the code of practice in SYN IS 90704.",SYNTHETIC
+SYN IS 90102,SYN IS 90701,test_method,curated,"Clause 7.3: uPVC pipes shall withstand the internal hydrostatic pressure test for 1 hour at 27 C when tested according to SYN IS 90701.",SYNTHETIC
+SYN IS 90102,SYN IS 90703,terminology,curated,"Clause 2.2: Terminology for nominal outside diameter and pressure rating PN shall follow SYN IS 90703.",SYNTHETIC
+SYN IS 90102,SYN IS 90704,installation,rule,"Clause 10.1: Underground laying, solvent cement jointing and backfilling of uPVC potable water pipes shall be carried out as per SYN IS 90704.",SYNTHETIC
+SYN IS 90103,SYN IS 90701,test_method,curated,"Clause 7.1: HDPE PE 80 and PE 100 pipes shall pass the hydrostatic strength test at 80 C for 165 hours as prescribed in SYN IS 90701.",SYNTHETIC
+SYN IS 90103,SYN IS 90703,terminology,curated,"Clause 3.1: Definitions of standard dimension ratio (SDR) and minimum required strength (MRS) are as defined in SYN IS 90703.",SYNTHETIC
+SYN IS 90103,SYN IS 90704,installation,rule,"Clause 9.4: Butt fusion welding and trench installation of HDPE mains shall comply with SYN IS 90704.",SYNTHETIC
+SYN IS 90104,SYN IS 90701,test_method,curated,"Clause 9.1: Spun ductile iron pipes K7 and K9 shall be subjected to works hydrostatic test at 4.0 MPa to 5.0 MPa per SYN IS 90701.",SYNTHETIC
+SYN IS 90104,SYN IS 90703,terminology,curated,"Clause 3.2: Terms relating to push-on flexible joints and nominal diameter DN conform to SYN IS 90703.",SYNTHETIC
+SYN IS 90104,SYN IS 90704,installation,curated,"Clause 12.1: Laying, elastomeric gasket jointing and thrust block design for DI pipes shall follow SYN IS 90704.",SYNTHETIC
+SYN IS 90201,SYN IS 90705,installation,curated,"Clause 9.1: Selection, mounting in distribution boards, and earthing coordination of AC and DC MCBs shall conform to the safety rules in SYN IS 90705.",SYNTHETIC
+SYN IS 90201,SYN IS 90301,related_product,model,"Annex B: Lighting branch circuits protected by Type B or Type C MCBs supplying LED lamp banks under SYN IS 90301 shall account for driver inrush current.",SYNTHETIC
+SYN IS 90301,SYN IS 90706,test_method,curated,"Clause 8.1: Luminous flux, efficacy (lm/W), CRI and harmonic distortion of self-ballasted LED lamps shall be measured in accordance with SYN IS 90706.",SYNTHETIC
+SYN IS 90301,SYN IS 90705,safety,curated,"Clause 5.3: Electrical insulation, creepage distance and protective earthing of luminaire circuits shall comply with SYN IS 90705.",SYNTHETIC
+SYN IS 90401,SYN IS 90707,test_method,curated,"Clause 7.2: Compressive strength, block density and water absorption of hollow and solid concrete blocks shall be tested according to SYN IS 90707.",SYNTHETIC
+SYN IS 90401,SYN IS 90801,related_product,rule,"Clause 4.1: Ordinary Portland Cement conforming to SYN IS 90801 shall be used as the binder in the manufacture of load-bearing concrete masonry blocks.",SYNTHETIC
+SYN IS 90402,SYN IS 90707,test_method,curated,"Clause 6.1: Compressive strength, efflorescence and 24-hour cold water absorption of burnt clay bricks shall be determined as per SYN IS 90707.",SYNTHETIC
+SYN IS 90501,SYN IS 99001,test_method,rule,"Clause 7.4: Planted orphan reference — volatile organic compound (VOC) chromatography test shall follow unregistered draft standard SYN IS 99001.",SYNTHETIC
+SYN IS 90601,SYN IS 99002,terminology,model,"Clause 2.5: Planted orphan reference — surface glaze micro-texture glossary terms refer to non-existent standard SYN IS 99002.",SYNTHETIC

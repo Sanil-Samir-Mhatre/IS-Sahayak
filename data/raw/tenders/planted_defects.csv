@@ -1,0 +1,10 @@
+tender_file,line_no,item_text_prefix,cited_is,expected_status,expected_primary_is,defect_detail
+sample_tender_01.txt,1,"Supply and delivery of 50 mm NB Medium grade GI mild steel tubes",SYN IS 90151,OUTDATED,SYN IS 90101,"Two-hop supersession: cited SYN IS 90151 (1990) -> SYN IS 90152 (2004) -> current SYN IS 90101 (2018, Amnd 2: 2022)"
+sample_tender_01.txt,2,"Providing and laying 110 mm OD PN 10 uPVC potable water pipes",SYN IS 90102,OK,SYN IS 90102,"Cited standard SYN IS 90102 (2020) is current and matches uPVC potable water pipes"
+sample_tender_01.txt,3,"Supply of 200 mm PE 100 HDPE pipes for underground water main",,MISSING,SYN IS 90103,"No IS standard cited in tender line; recommended SYN IS 90103 (2021) with mandatory BIS certification"
+sample_tender_01.txt,4,"Supply of 32A C-curve 240V AC miniature circuit breakers (MCB)",SYN IS 90402,MISMATCH,SYN IS 90201,"Cited SYN IS 90402 is for Burnt Clay Bricks, which mismatches electrical MCB item (should be SYN IS 90201)"
+sample_tender_01.txt,5,"Supply of 12W self-ballasted LED lamps 240V AC CRI >= 80",SYN IS 99999,UNKNOWN_ID,SYN IS 90301,"Cited SYN IS 99999 does not exist in closed-world BIS registry (hallucinated/invalid ID blocked); recommended SYN IS 90301"
+sample_tender_02.txt,1,"Supply of 150 mm asbestos cement pressure pipes for rural water main",SYN IS 90998,OUTDATED,SYN IS 90998,"Cited SYN IS 90998 (1985) is WITHDRAWN without direct asbestos successor due to safety regulations"
+sample_tender_02.txt,2,"Bituminous waterproofing membrane for roof damp-proofing",SYN IS 90991,OUTDATED,SYN IS 90991,"Cited SYN IS 90991 is in a planted supersession CYCLE (SYN IS 90991 <-> SYN IS 90992); cycle detected safely"
+sample_tender_02.txt,3,"Precast hollow concrete masonry blocks 400x200x200 mm grade C(5.0)",,MISSING,SYN IS 90401,"No IS standard cited; recommended SYN IS 90401 (2019) (Note: no certification rule found in table)"
+sample_tender_02.txt,4,"Supply of 600x600 mm vitrified pressed ceramic floor tiles Group BIa",SYN IS 90601,OK,SYN IS 90601,"Cited SYN IS 90601 (2021) is current and covered by ICS:91.100.23 mandatory BIS QCO"

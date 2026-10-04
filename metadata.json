@@ -1,0 +1,8 @@
+{
+  "name": "IS-Sahayak — Verified Indian Standards & Tender Compliance Engine",
+  "description": "IS-Sahayak recommends the right, current Indian Standards (BIS) and certification for any tender requirement in English, Hindi, or Hinglish, with closed-world verification, supersession chain resolution, and clause-level evidence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
