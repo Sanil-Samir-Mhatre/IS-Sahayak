@@ -9,14 +9,21 @@ import { runPipeline, runTenderAudit } from './src/engine/pipeline';
 import { PYTHON_STREAMLIT_FILES, SYNTHETIC_DATASET_FILES } from './src/engine/pythonBundle';
 import { DataMode, RetrievalMode } from './src/engine/types';
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
-    },
-  },
-});
+let cachedAi: GoogleGenAI | null = null;
+function getGeminiClient(): GoogleGenAI | null {
+  if (!process.env.GEMINI_API_KEY) return null;
+  if (!cachedAi) {
+    cachedAi = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        },
+      },
+    });
+  }
+  return cachedAi;
+}
 
 async function buildSyntheticZipBuffer(): Promise<Buffer> {
   const zip = new JSZip();
@@ -34,8 +41,8 @@ async function buildFullStreamlitRepoZipBuffer(): Promise<Buffer> {
   for (const [relPath, content] of Object.entries(PYTHON_STREAMLIT_FILES)) {
     zip.file(relPath, content);
   }
-  // Include root streamlit_app.py, requirements.txt, and README.md from disk
-  for (const rootFile of ['streamlit_app.py', 'requirements.txt', 'README.md']) {
+  // Include root streamlit_app.py, requirements.txt, render.yaml, and README.md from disk
+  for (const rootFile of ['streamlit_app.py', 'requirements.txt', 'render.yaml', 'README.md']) {
     const fullPath = path.resolve(process.cwd(), rootFile);
     if (fs.existsSync(fullPath)) {
       zip.file(rootFile, fs.readFileSync(fullPath, 'utf-8'));
@@ -259,11 +266,12 @@ async function startServer() {
     }
 
     // Tier 2: Gemini Model Cascade (tries multiple models if one has 503 high demand)
-    if (process.env.GEMINI_API_KEY) {
+    const aiClient = getGeminiClient();
+    if (aiClient) {
       const candidateModels = ['gemini-flash-latest', 'gemini-3.1-flash-lite', 'gemini-3.8-flash'];
       for (const modelName of candidateModels) {
         try {
-          const response = await ai.models.generateContent({
+          const response = await aiClient.models.generateContent({
             model: modelName,
             contents: `Translate each of the following ${texts.length} English procurement and Indian Standards (BIS) specification strings into ${targetLangName} (language code: ${targetLangCode}).
 Rules:

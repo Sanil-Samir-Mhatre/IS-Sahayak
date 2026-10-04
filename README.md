@@ -6,6 +6,28 @@ IS-Sahayak recommends current, verified Indian Standards (BIS) and companion sta
 
 ---
 
+## How to Deploy the Exact Google AI Studio App on Render.com
+
+### Step 1: Push Your Code to GitHub
+1. Click the **GitHub (Export / Save to GitHub)** icon in the top bar of **Google AI Studio** to push this workspace directly to a new GitHub repository (e.g. `is-sahayak`).
+
+### Step 2: Deploy on Render (`render.com`)
+1. Go to **[dashboard.render.com](https://dashboard.render.com/)** and sign in with your **GitHub** account.
+2. Click **New +** → **Web Service**.
+3. Connect and select your **`is-sahayak`** GitHub repository.
+4. Use these exact settings:
+   - **Runtime**: `Node`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Instance Type**: `Free` (or Starter)
+5. *(Optional)* Under **Environment Variables**, add:
+   - `NODE_ENV` = `production`
+   - *(Translation across all 22 Indian languages works automatically out of the box without any API key; if you also want the Gemini fallback tier active, you can optionally add `GEMINI_API_KEY`).*
+6. Click **Create Web Service**.
+   - Render will build the Vite frontend (`dist/`) and start `server.ts` on Render's assigned `$PORT`, serving the full UI (**Simple Mode + Expert Mode + 22 Indian Languages**) and all REST endpoints (`/healthz`, `/v1/recommend`, `/v1/audit`, `/v1/standards/:id`, `/api/translate`).
+
+---
+
 ## How to Push to GitHub & Deploy on Streamlit Community Cloud
 
 ### Step 1: Push to GitHub
