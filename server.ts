@@ -191,8 +191,13 @@ async function startServer() {
     sa: 'sa',
   };
 
-  async function translateSingleViaGoogleGtx(text: string, targetCode: string): Promise<string> {
+  async function translateSingleViaGoogleGtx(
+    text: string,
+    targetCode: string,
+    sourceCode: string = 'auto'
+  ): Promise<string> {
     const tl = GOOGLE_LANG_MAP[targetCode] || targetCode;
+    const sl = sourceCode === 'auto' ? 'auto' : GOOGLE_LANG_MAP[sourceCode] || sourceCode;
     // Protect IS numbers like "SYN IS 90101" or "IS 1239" so they are never altered
     const placeholders: string[] = [];
     const protectedText = text.replace(/\b(?:SYN\s+)?IS\s*\d{3,6}(?:\s*\(Part\s*\d+\))?/gi, (m) => {
@@ -200,9 +205,9 @@ async function startServer() {
       return `__ISCODE_${placeholders.length - 1}__`;
     });
 
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(
-      tl
-    )}&dt=t&q=${encodeURIComponent(protectedText)}`;
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(
+      sl
+    )}&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(protectedText)}`;
 
     const resp = await fetch(url, {
       headers: {
@@ -229,20 +234,21 @@ async function startServer() {
     return translated.replace(/__ISCODE_(\d+)__/g, (_m, idx) => placeholders[Number(idx)] || _m);
   }
 
-  // Server-side Translation Endpoint for all 22 Scheduled Indian Languages
+  // Server-side Translation Endpoint for all 22 Scheduled Indian Languages (bidirectional)
   app.post('/api/translate', async (req, res) => {
     const texts: string[] = Array.isArray(req.body?.texts) ? req.body.texts.map(String) : [];
     const targetLangCode = String(req.body?.targetLangCode || 'hi').trim();
     const targetLangName = String(req.body?.targetLangName || 'Hindi').trim();
+    const sourceLangCode = String(req.body?.sourceLangCode || 'auto').trim();
 
-    if (texts.length === 0 || targetLangCode === 'en') {
+    if (texts.length === 0) {
       return res.json({ translations: texts, provider: 'Identity' });
     }
 
     // Tier 1: Fast Google Translate GTX endpoint (instant ~80ms, no 503 model overload)
     try {
       const gtxResults = await Promise.all(
-        texts.map((t) => translateSingleViaGoogleGtx(t, targetLangCode))
+        texts.map((t) => translateSingleViaGoogleGtx(t, targetLangCode, sourceLangCode))
       );
       return res.json({
         translations: gtxResults,

@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { globalStore } from './engine/dataset';
-import { getUiStrings, INDIAN_LANGUAGES } from './engine/indianLanguages';
+import {
+  DEFAULT_EN_STRINGS,
+  fetchLocalizedUiStrings,
+  getUiStrings,
+  INDIAN_LANGUAGES,
+  UiTranslationStrings,
+} from './engine/indianLanguages';
 import { getHonestRankerLabel } from './engine/pipeline';
 import { DataMode, RetrievalMode, UserRole } from './engine/types';
 import { Languages } from 'lucide-react';
@@ -70,13 +76,28 @@ export default function App() {
   const [dataMode, setDataMode] = useState<DataMode>('COMBINED');
   const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>('hybrid_rrf');
   const [targetLang, setTargetLang] = useState<string>('en');
+  const [uiStrings, setUiStrings] = useState<UiTranslationStrings>(DEFAULT_EN_STRINGS);
   const [translateTriggerCount, setTranslateTriggerCount] = useState<number>(0);
   const [presetQuery, setPresetQuery] = useState<string | undefined>(undefined);
   const [presetDebugFake, setPresetDebugFake] = useState<boolean>(false);
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
 
   const triggerRefresh = () => setRefreshTrigger((n) => n + 1);
-  const uiStrings = getUiStrings(targetLang);
+
+  useEffect(() => {
+    let cancelled = false;
+    setUiStrings(getUiStrings(targetLang));
+    if (targetLang !== 'en') {
+      fetchLocalizedUiStrings(targetLang).then((localized) => {
+        if (!cancelled) {
+          setUiStrings(localized);
+        }
+      });
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [targetLang]);
 
   const handleNavigateExpert = (pageIdx: number, query?: string, debugFake?: boolean) => {
     if (query !== undefined) setPresetQuery(query);
@@ -106,6 +127,7 @@ export default function App() {
     refreshTrigger,
     triggerRefresh,
     targetLang,
+    uiStrings,
     onChangeTargetLang: (code: string) => {
       setTargetLang(code);
       setTranslateTriggerCount((c) => c + 1);
@@ -124,7 +146,7 @@ export default function App() {
               <div className="text-lg font-bold text-slate-900 tracking-tight">IS-Sahayak</div>
               <div className="text-xs text-slate-600 mt-0.5">
                 {uiMode === 'Simple'
-                  ? 'Verified Indian Standards Assistant'
+                  ? uiStrings.appSubtitle
                   : 'Expert Mode · Full 16-Page Workbench'}
               </div>
             </div>

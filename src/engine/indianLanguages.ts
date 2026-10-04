@@ -3,326 +3,329 @@ export interface IndianLanguageOption {
   nameEn: string;
   nameNative: string;
   script: string;
+  sampleQuery: string;
 }
 
 export const INDIAN_LANGUAGES: IndianLanguageOption[] = [
-  { code: 'en', nameEn: 'English', nameNative: 'English', script: 'Latin' },
-  { code: 'hi', nameEn: 'Hindi', nameNative: 'हिन्दी', script: 'Devanagari' },
-  { code: 'bn', nameEn: 'Bengali', nameNative: 'বাংলা', script: 'Bengali' },
-  { code: 'mr', nameEn: 'Marathi', nameNative: 'मराठी', script: 'Devanagari' },
-  { code: 'te', nameEn: 'Telugu', nameNative: 'తెలుగు', script: 'Telugu' },
-  { code: 'ta', nameEn: 'Tamil', nameNative: 'தமிழ்', script: 'Tamil' },
-  { code: 'gu', nameEn: 'Gujarati', nameNative: 'ગુજરાતી', script: 'Gujarati' },
-  { code: 'ur', nameEn: 'Urdu', nameNative: 'اردو', script: 'Perso-Arabic' },
-  { code: 'kn', nameEn: 'Kannada', nameNative: 'ಕನ್ನಡ', script: 'Kannada' },
-  { code: 'or', nameEn: 'Odia', nameNative: 'ଓଡ଼ିଆ', script: 'Odia' },
-  { code: 'ml', nameEn: 'Malayalam', nameNative: 'മലയാളം', script: 'Malayalam' },
-  { code: 'pa', nameEn: 'Punjabi', nameNative: 'ਪੰਜਾਬੀ', script: 'Gurmukhi' },
-  { code: 'as', nameEn: 'Assamese', nameNative: 'অসমীয়া', script: 'Assamese' },
-  { code: 'mai', nameEn: 'Maithili', nameNative: 'मैथिली', script: 'Devanagari' },
-  { code: 'sat', nameEn: 'Santali', nameNative: 'ᱥᱟᱱᱛᱟᱲᱤ', script: 'Ol Chiki' },
-  { code: 'ks', nameEn: ' Kashmiri', nameNative: 'कॉशुर / کٲشُر', script: 'Devanagari/Perso-Arabic' },
-  { code: 'ne', nameEn: 'Nepali', nameNative: 'नेपाली', script: 'Devanagari' },
-  { code: 'sd', nameEn: 'Sindhi', nameNative: 'सिन्धी / سنڌي', script: 'Devanagari/Perso-Arabic' },
-  { code: 'doi', nameEn: 'Dogri', nameNative: 'डोगरी', script: 'Devanagari' },
-  { code: 'kok', nameEn: 'Konkani', nameNative: 'कोंकणी', script: 'Devanagari' },
-  { code: 'mni', nameEn: 'Manipuri', nameNative: 'মৈতৈলোন্', script: 'Meitei/Bengali' },
-  { code: 'brx', nameEn: 'Bodo', nameNative: "बर'", script: 'Devanagari' },
-  { code: 'sa', nameEn: 'Sanskrit', nameNative: 'संस्कृतम्', script: 'Devanagari' },
+  {
+    code: 'en',
+    nameEn: 'English',
+    nameNative: 'English',
+    script: 'Latin',
+    sampleQuery:
+      'Supply of 50 mm nominal bore Medium grade galvanized iron (GI) mild steel tubes for municipal potable water supply',
+  },
+  {
+    code: 'hi',
+    nameEn: 'Hindi',
+    nameNative: 'हिन्दी',
+    script: 'Devanagari',
+    sampleQuery: 'पेयजल आपूर्ति के लिए 50 मिमी मध्यम ग्रेड जीआई (GI) माइल्ड स्टील पाइप',
+  },
+  {
+    code: 'bn',
+    nameEn: 'Bengali',
+    nameNative: 'বাংলা',
+    script: 'Bengali',
+    sampleQuery: 'পানীয় জল সরবরাহের জন্য 50 মিমি মাঝারি গ্রেড জিআই (GI) মাইল্ড স্টিল পাইপ',
+  },
+  {
+    code: 'mr',
+    nameEn: 'Marathi',
+    nameNative: 'मराठी',
+    script: 'Devanagari',
+    sampleQuery: 'पिण्याच्या पाणी पुरवठ्यासाठी 50 मिमी मध्यम दर्जाचे जीआय (GI) माईल्ड स्टील पाईप',
+  },
+  {
+    code: 'te',
+    nameEn: 'Telugu',
+    nameNative: 'తెలుగు',
+    script: 'Telugu',
+    sampleQuery: 'త్రాగునీటి సరఫరా కోసం 50 మిమీ మీడియం గ్రేడ్ జిఐ (GI) మైల్డ్ స్టీల్ పైపులు',
+  },
+  {
+    code: 'ta',
+    nameEn: 'Tamil',
+    nameNative: 'தமிழ்',
+    script: 'Tamil',
+    sampleQuery: 'குடிநீர் விநியோகத்திற்கான 50 மிமீ நடுத்தர தரம் ஜிஐ (GI) மைல்ட் ஸ்டீல் குழாய்கள்',
+  },
+  {
+    code: 'gu',
+    nameEn: 'Gujarati',
+    nameNative: 'ગુજરાતી',
+    script: 'Gujarati',
+    sampleQuery: 'પીવાના પાણીના પુરવઠા માટે 50 મીમી મીડીયમ ગ્રેડ જીઆઈ (GI) માઈલ્ડ સ્ટીલ પાઈપ',
+  },
+  {
+    code: 'ur',
+    nameEn: 'Urdu',
+    nameNative: 'اردو',
+    script: 'Perso-Arabic',
+    sampleQuery: 'پینے کے پانی کی فراہمی کے لیے 50 ملی میٹر میڈیم گریڈ جی آئی (GI) مائلڈ اسٹیل پائپ',
+  },
+  {
+    code: 'kn',
+    nameEn: 'Kannada',
+    nameNative: 'ಕನ್ನಡ',
+    script: 'Kannada',
+    sampleQuery: 'ಕುಡಿಯುವ ನೀರಿನ ಪೂರೈಕೆಗಾಗಿ 50 ಮಿಮೀ ಮೀಡಿಯಂ ಗ್ರೇಡ್ ಜಿಐ (GI) ಮೈಲ್ಡ್ ಸ್ಟೀಲ್ ಪೈಪ್‌ಗಳು',
+  },
+  {
+    code: 'or',
+    nameEn: 'Odia',
+    nameNative: 'ଓଡ଼ିଆ',
+    script: 'Odia',
+    sampleQuery: 'ପାନୀୟ ଜଳ ଯୋଗାଣ ପାଇଁ 50 ମିମି ମିଡିୟମ୍ ଗ୍ରେଡ୍ ଜିଆଇ (GI) ମାଇଲ୍ଡ ଷ୍ଟିଲ୍ ପାଇପ୍',
+  },
+  {
+    code: 'ml',
+    nameEn: 'Malayalam',
+    nameNative: 'മലയാളം',
+    script: 'Malayalam',
+    sampleQuery: 'കുടിവെള്ള വിതരണത്തിനായി 50 എംഎം മീഡിയം ഗ്രേഡ് ജിഐ (GI) മൈൽഡ് സ്റ്റീൽ പൈപ്പുകൾ',
+  },
+  {
+    code: 'pa',
+    nameEn: 'Punjabi',
+    nameNative: 'ਪੰਜਾਬੀ',
+    script: 'Gurmukhi',
+    sampleQuery: 'ਪੀਣ ਵਾਲੇ ਪਾਣੀ ਦੀ ਸਪਲਾਈ ਲਈ 50 ਮਿਲੀਮੀਟਰ ਮੀਡੀਅਮ ਗ੍ਰੇਡ ਜੀਆਈ (GI) ਮਾਇਲਡ ਸਟੀਲ ਪਾਈਪ',
+  },
+  {
+    code: 'as',
+    nameEn: 'Assamese',
+    nameNative: 'অসমীয়া',
+    script: 'Assamese',
+    sampleQuery: 'খোৱা পানী যোগানৰ বাবে 50 মিমি মিডিয়াম গ্ৰেড জিআই (GI) মাইল্ড ষ্টীল পাইপ',
+  },
+  {
+    code: 'mai',
+    nameEn: 'Maithili',
+    nameNative: 'मैथिली',
+    script: 'Devanagari',
+    sampleQuery: 'पीबक पानि आपूर्तिक लेल 50 मिमी मध्यम ग्रेड जीआई (GI) माइल्ड स्टील पाइप',
+  },
+  {
+    code: 'sat',
+    nameEn: 'Santali',
+    nameNative: 'ᱥᱟᱱᱛᱟᱲᱤ',
+    script: 'Ol Chiki',
+    sampleQuery: 'Supply of 50 mm GI mild steel water supply pipe',
+  },
+  {
+    code: 'ks',
+    nameEn: 'Kashmiri',
+    nameNative: 'कॉशुर / کٲشُر',
+    script: 'Devanagari/Perso-Arabic',
+    sampleQuery: 'च़ोनस पान्युक बापत 50 मिमी जीआई माइल्ड स्टील पाइप',
+  },
+  {
+    code: 'ne',
+    nameEn: 'Nepali',
+    nameNative: 'नेपाली',
+    script: 'Devanagari',
+    sampleQuery: 'खानेपानी आपूर्तिको लागि ५० मिमी मध्यम ग्रेड जीआई (GI) माइल्ड स्टील पाइप',
+  },
+  {
+    code: 'sd',
+    nameEn: 'Sindhi',
+    nameNative: 'सिन्धी / سنڌي',
+    script: 'Devanagari/Perso-Arabic',
+    sampleQuery: 'पीअण जे पाणी लाए 50 मिमी जीआई माइल्ड स्टील पाइप',
+  },
+  {
+    code: 'doi',
+    nameEn: 'Dogri',
+    nameNative: 'डोगरी',
+    script: 'Devanagari',
+    sampleQuery: 'पीने दे पानी लेई 50 मिमी मध्यम ग्रेड जीआई माइल्ड स्टील पाइप',
+  },
+  {
+    code: 'kok',
+    nameEn: 'Konkani',
+    nameNative: 'कोंकणी',
+    script: 'Devanagari',
+    sampleQuery: 'पियेवपाच्या उदका खातीर 50 मिमी जीआय मायल्ड स्टील पायप',
+  },
+  {
+    code: 'mni',
+    nameEn: 'Manipuri',
+    nameNative: 'মৈতৈলোন্',
+    script: 'Meitei/Bengali',
+    sampleQuery: 'থক্নবা ঈশিং ফংহন্নবগীদমক 50 মিমি জিআই মাইল্ড ষ্টীল পাইপ',
+  },
+  {
+    code: 'brx',
+    nameEn: 'Bodo',
+    nameNative: "बर'",
+    script: 'Devanagari',
+    sampleQuery: 'लोंनाय दै राननायनि थाखाय 50 मिमि जीआइ माइल्ड स्टिल पाइप',
+  },
+  {
+    code: 'sa',
+    nameEn: 'Sanskrit',
+    nameNative: 'संस्कृतम्',
+    script: 'Devanagari',
+    sampleQuery: 'पेयजलवितरणार्थं ५० मिमी मध्यमश्रेणी जीआई मृदु इस्पात नलिका',
+  },
 ];
 
 export interface UiTranslationStrings {
+  appSubtitle: string;
   navAsk: string;
   navTender: string;
   navSaved: string;
   navHelp: string;
   askPrompt: string;
+  searchPlaceholder: string;
+  exampleChipsLabel: string;
+  useSampleInLangBtn: string;
   findButton: string;
   findingSpinner: string;
   completenessLabel: string;
+  allRequiredIncluded: string;
   looksRight: string;
   checkThis: string;
   notSure: string;
   whyThis: string;
   currentVersion: string;
+  amendmentWord: string;
   replacedPrefix: string;
   withWord: string;
   certificationLabel: string;
   noRuleFound: string;
   alsoNeededTitle: string;
+  chipTest: string;
+  chipTerms: string;
+  chipSafety: string;
+  chipInstall: string;
   saveBtn: string;
   downloadPdfBtn: string;
   copyListBtn: string;
-  translateBundleBtn: string;
-  translatingSpinner: string;
+  copiedBtn: string;
+  suggestCorrectionBtn: string;
+  showDetailsBtn: string;
+  tenderUploadTitle: string;
+  tenderUploadSub: string;
+  uploadTenderBtn: string;
+  downloadReportBtn: string;
+  fixGroupTitle: string;
+  missingGroupTitle: string;
+  goodGroupTitle: string;
+  savedSpecsTitle: string;
+  savedSpecsAttentionBanner: string;
+  helpTitle: string;
+  faqTitle: string;
 }
 
-const DEFAULT_EN_STRINGS: UiTranslationStrings = {
+export const DEFAULT_EN_STRINGS: UiTranslationStrings = {
+  appSubtitle: 'Verified Indian Standards Assistant',
   navAsk: 'Ask',
   navTender: 'Check my tender',
   navSaved: 'My saved specs',
   navHelp: 'Help',
   askPrompt: 'What product or item are you buying?',
+  searchPlaceholder:
+    'Describe item in any Indian language or English (e.g. 50 mm GI water pipe / पेयजल के लिए जीआई पाइप)...',
+  exampleChipsLabel: 'Or tap an example to try:',
+  useSampleInLangBtn: 'Try sample query in this language',
   findButton: 'Find Standards',
   findingSpinner: 'Finding the right standards...',
   completenessLabel: 'Bundle Completeness',
+  allRequiredIncluded: 'All required standard types included',
   looksRight: 'Looks right',
   checkThis: 'Check this',
   notSure: 'Not sure',
   whyThis: 'Why this?',
   currentVersion: 'Current version',
+  amendmentWord: 'Amendment',
   replacedPrefix: 'Replaced',
   withWord: 'with',
   certificationLabel: 'Certification',
   noRuleFound: "We couldn't find a rule in our table",
-  alsoNeededTitle: 'Also needed (Companion Standards)',
+  alsoNeededTitle: 'Also needed for a complete tender',
+  chipTest: 'Test',
+  chipTerms: 'Terms',
+  chipSafety: 'Safety',
+  chipInstall: 'Install',
   saveBtn: 'Save',
   downloadPdfBtn: 'Download PDF',
   copyListBtn: 'Copy list',
-  translateBundleBtn: 'Translate Results',
-  translatingSpinner: 'Translating into selected Indian language...',
+  copiedBtn: 'Copied!',
+  suggestCorrectionBtn: 'Suggest a correction',
+  showDetailsBtn: 'Show details',
+  tenderUploadTitle: 'Drop your draft tender file here, or choose a file',
+  tenderUploadSub: 'Supports plain text (.txt) draft tenders, or tap a sample tender below:',
+  uploadTenderBtn: 'Upload Tender',
+  downloadReportBtn: 'Download Report',
+  fixGroupTitle: 'Fix — Outdated or Wrong Standard Cited',
+  missingGroupTitle: 'Missing — No Indian Standard Cited',
+  goodGroupTitle: 'Looks good — Current & Valid',
+  savedSpecsTitle: 'My Saved Specifications',
+  savedSpecsAttentionBanner: 'saved spec(s) need attention — a cited Indian Standard has changed',
+  helpTitle: '5-Step Walkthrough',
+  faqTitle: 'Frequently Asked Questions (FAQ)',
 };
 
 export const UI_DICTIONARY: Record<string, Partial<UiTranslationStrings>> = {
   en: DEFAULT_EN_STRINGS,
   hi: {
+    appSubtitle: 'सत्यापित भारतीय मानक सहायक',
     navAsk: 'मानक खोजें (Ask)',
     navTender: 'निविदा जांचें (Check tender)',
     navSaved: 'सहेजे गए मानक (Saved specs)',
     navHelp: 'सहायता (Help)',
     askPrompt: 'आप कौन सा उत्पाद या वस्तु खरीद रहे हैं?',
+    searchPlaceholder: 'किसी भी भारतीय भाषा या अंग्रेजी में उत्पाद लिखें (जैसे: 50 मिमी जीआई पानी का पाइप)...',
+    exampleChipsLabel: 'या नीचे दिए गए उदाहरणों में से चुनें:',
+    useSampleInLangBtn: 'हिन्दी में उदाहरण प्रश्न आज़माएं',
     findButton: 'मानक खोजें',
     findingSpinner: 'सही भारतीय मानक खोजे जा रहे हैं...',
     completenessLabel: 'बंडल पूर्णता (Completeness)',
-    looksRight: 'सही लगता है (Looks right)',
-    checkThis: 'इसकी जांच करें (Check this)',
-    notSure: 'निश्चित नहीं (Not sure)',
+    allRequiredIncluded: 'सभी आवश्यक मानक शामिल हैं',
+    looksRight: 'सही लगता है',
+    checkThis: 'इसकी जांच करें',
+    notSure: 'निश्चित नहीं',
     whyThis: 'यह मानक क्यों?',
     currentVersion: 'वर्तमान संस्करण',
-    replacedPrefix: 'पुराना मानक',
+    amendmentWord: 'संशोधन',
+    replacedPrefix: 'पुराना मानक बदला:',
     withWord: 'के स्थान पर',
     certificationLabel: 'प्रमाणन (Certification)',
     noRuleFound: 'हमारी तालिका में कोई नियम नहीं मिला',
-    alsoNeededTitle: 'साथ में आवश्यक (सहयोगी मानक)',
-    saveBtn: 'सहेजें (Save)',
-    downloadPdfBtn: 'रिपोर्ट डाउनलोड करें (PDF)',
+    alsoNeededTitle: 'पूर्ण निविदा के लिए साथ में आवश्यक मानक',
+    chipTest: 'परीक्षण (Test)',
+    chipTerms: 'शब्दावली (Terms)',
+    chipSafety: 'सुरक्षा (Safety)',
+    chipInstall: 'स्थापना (Install)',
+    saveBtn: 'सहेजें',
+    downloadPdfBtn: 'पीडीएफ डाउनलोड करें',
     copyListBtn: 'सूची कॉपी करें',
-    translateBundleBtn: 'परिणाम अनुवाद करें',
-    translatingSpinner: 'चयनित भारतीय भाषा में अनुवाद हो रहा है...',
-  },
-  bn: {
-    navAsk: 'মানক খুঁজুন (Ask)',
-    navTender: 'টেন্ডার যাচাই করুন',
-    navSaved: 'সংরক্ষিত স্পেকস',
-    navHelp: 'সহায়তা (Help)',
-    askPrompt: 'আপনি কোন পণ্য বা সামগ্রী কিনছেন?',
-    findButton: 'মানক খুঁজুন',
-    findingSpinner: 'সঠিক ভারতীয় মানক খোঁজা হচ্ছে...',
-    completenessLabel: 'বান্ডিল সম্পূর্ণতা',
-    looksRight: 'সঠিক মনে হচ্ছে',
-    checkThis: 'এটি যাচাই করুন',
-    notSure: 'নিশ্চিত নয়',
-    whyThis: 'কেন এই মানক?',
-    currentVersion: 'বর্তমান সংস্করণ',
-    certificationLabel: 'সার্টিফিকেশন',
-    noRuleFound: 'আমাদের তালিকায় কোনো নিয়ম পাওয়া যায়নি',
-    alsoNeededTitle: 'এছাড়াও প্রয়োজন (সহযোগী মানক)',
-    saveBtn: 'সংরক্ষণ করুন',
-    downloadPdfBtn: 'ডাউনলোড (PDF)',
-    copyListBtn: 'তালিকা কপি করুন',
-  },
-  mr: {
-    navAsk: 'मानके शोधा (Ask)',
-    navTender: 'माझी निविदा तपासा',
-    navSaved: 'जतन केलेली मानके',
-    navHelp: 'मदत (Help)',
-    askPrompt: 'तुम्ही कोणती वस्तू किंवा उत्पादन खरेदी करत आहात?',
-    findButton: 'मानके शोधा',
-    findingSpinner: 'योग्य भारतीय मानके शोधत आहे...',
-    completenessLabel: 'बंडल पूर्णता',
-    looksRight: 'योग्य वाटते',
-    checkThis: 'हे तपासा',
-    notSure: 'खात्री नाही',
-    whyThis: 'हे मानक का?',
-    currentVersion: 'सध्याची आवृत्ती',
-    certificationLabel: 'प्रमाणन',
-    noRuleFound: 'आमच्या तक्त्यामध्ये कोणताही नियम सापडला नाही',
-    alsoNeededTitle: 'सोबत आवश्यक (सहयोगी मानके)',
-    saveBtn: 'जतन करा',
-    downloadPdfBtn: 'डाउनलोड करा (PDF)',
-    copyListBtn: 'यादी कॉपी करा',
-  },
-  te: {
-    navAsk: 'ప్రమాణాలు వెతకండి (Ask)',
-    navTender: 'టెండర్ తనిఖీ చేయండి',
-    navSaved: 'సేవ్ చేసినవి',
-    navHelp: 'సహాయం (Help)',
-    askPrompt: 'మీరు ఏ ఉత్పత్తి లేదా వస్తువును కొనుగోలు చేస్తున్నారు?',
-    findButton: 'ప్రమాణాలు వెతకండి',
-    findingSpinner: 'సరైన భారతీయ ప్రమాణాలను వెతుకుతోంది...',
-    completenessLabel: 'బండిల్ పూర్తి స్థాయి',
-    looksRight: 'సరిగ్గా కనిపిస్తోంది',
-    checkThis: 'ఇది తనిఖీ చేయండి',
-    notSure: 'ఖచ్చితంగా తెలియదు',
-    whyThis: 'ఇది ఎందుకు?',
-    currentVersion: 'ప్రస్తుత వెర్షన్',
-    certificationLabel: 'ధృవీకరణ',
-    noRuleFound: 'మా పట్టికలో నియమం కనుగొనబడలేదు',
-    alsoNeededTitle: 'అదనంగా అవసరమైనవి',
-    saveBtn: 'సేవ్ చేయండి',
-    downloadPdfBtn: 'డౌన్‌లోడ్ (PDF)',
-    copyListBtn: 'జాబితా కాపీ చేయండి',
-  },
-  ta: {
-    navAsk: 'தரநிலைகளைத் தேடு (Ask)',
-    navTender: 'டெண்டரை சரிபார்க்கவும்',
-    navSaved: 'சேமித்தவை',
-    navHelp: 'உதவி (Help)',
-    askPrompt: 'நீங்கள் எந்த பொருள் அல்லது தயாரிப்பை வாங்குகிறீர்கள்?',
-    findButton: 'தரநிலைகளைக் கண்டறி',
-    findingSpinner: 'சரியான இந்திய தரநிலைகளைத் தேடுகிறது...',
-    completenessLabel: 'தொகுப்பு முழுமை',
-    looksRight: 'சரியாகத் தெரிகிறது',
-    checkThis: 'இதைச் சரிபார்க்கவும்',
-    notSure: 'உறுதியாகத் தெரியவில்லை',
-    whyThis: 'இது ஏன்?',
-    currentVersion: 'தற்போதைய பதிப்பு',
-    certificationLabel: 'சான்றிதழ்',
-    noRuleFound: 'எங்கள் அட்டவணையில் விதி எதுவும் கிடைக்கவில்லை',
-    alsoNeededTitle: 'கூடுதலாகத் தேவைப்படும் தரநிலைகள்',
-    saveBtn: 'சேமி',
-    downloadPdfBtn: 'பதிவிறக்கு (PDF)',
-    copyListBtn: 'பட்டியலை நகலெடு',
-  },
-  gu: {
-    navAsk: 'માનકો શોધો (Ask)',
-    navTender: 'ટેન્ડર તપાસો',
-    navSaved: 'સાચવેલા સ્પેક્સ',
-    navHelp: 'મદદ (Help)',
-    askPrompt: 'તમે કઈ વસ્તુ કે ઉત્પાદન ખરીદી રહ્યા છો?',
-    findButton: 'માનકો શોધો',
-    findingSpinner: 'યોગ્ય ભારતીય માનકો શોધી રહ્યું છે...',
-    completenessLabel: 'બંડલ પૂર્ણતા',
-    looksRight: 'સાચું લાગે છે',
-    checkThis: 'આ તપાસો',
-    notSure: 'ખાતરી નથી',
-    whyThis: 'આ શા માટે?',
-    currentVersion: 'વર્તમાન આવૃત્તિ',
-    certificationLabel: 'પ્રમાણપત્ર',
-    noRuleFound: 'અમારા કોષ્ટકમાં કોઈ નિયમ મળ્યો નથી',
-    alsoNeededTitle: 'આ ઉપરાંત જરૂરી (સહયોગી માનકો)',
-    saveBtn: 'સાચવો',
-    downloadPdfBtn: 'ડાઉનલોડ (PDF)',
-    copyListBtn: 'યાદી કોપી કરો',
-  },
-  kn: {
-    navAsk: 'ಮಾನದಂಡ ಹುಡುಕಿ (Ask)',
-    navTender: 'ಟೆಂಡರ್ ಪರಿಶೀಲಿಸಿ',
-    navSaved: 'ಉಳಿಸಿದ ಮಾನದಂಡಗಳು',
-    navHelp: 'ಸಹಾಯ (Help)',
-    askPrompt: 'ನೀವು ಯಾವ ಉತ್ಪನ್ನ ಅಥವಾ ವಸ್ತುವನ್ನು ಖರೀದಿಸುತ್ತಿದ್ದೀರಿ?',
-    findButton: 'ಮಾನದಂಡಗಳನ್ನು ಹುಡುಕಿ',
-    findingSpinner: 'ಸರಿಯಾದ ಭಾರತೀಯ ಮಾನದಂಡಗಳನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ...',
-    completenessLabel: 'ಬಂಡಲ್ ಪೂರ್ಣತೆ',
-    looksRight: 'ಸರಿಯಾಗಿದೆ',
-    checkThis: 'ಇದನ್ನು ಪರಿಶೀಲಿಸಿ',
-    notSure: 'ಖಚಿತವಿಲ್ಲ',
-    whyThis: 'ಇದು ಏಕೆ?',
-    currentVersion: 'ಪ್ರಸ್ತುತ ಆವೃತ್ತಿ',
-    certificationLabel: 'ಪ್ರಮಾಣೀಕರಣ',
-    noRuleFound: 'ನಮ್ಮ ಕೋಷ್ಟಕದಲ್ಲಿ ಯಾವುದೇ ನಿಯಮ ಕಂಡುಬಂದಿಲ್ಲ',
-    alsoNeededTitle: 'ಇದಲ್ಲದೆ ಅಗತ್ಯವಿರುವ ಮಾನದಂಡಗಳು',
-    saveBtn: 'ಉಳಿಸಿ',
-    downloadPdfBtn: 'ಡೌನ್‌ಲೋಡ್ (PDF)',
-    copyListBtn: 'ಪಟ್ಟಿ ನಕಲಿಸಿ',
-  },
-  ml: {
-    navAsk: 'നിലവാരം തിരയുക (Ask)',
-    navTender: 'ടെൻഡർ പരിശോധിക്കുക',
-    navSaved: 'സേവ് ചെയ്തവ',
-    navHelp: 'സഹായം (Help)',
-    askPrompt: 'നിങ്ങൾ ഏത് ഉൽപ്പന്നമാണ് വാങ്ങുന്നത്?',
-    findButton: 'നിലവാരങ്ങൾ കണ്ടെത്തുക',
-    findingSpinner: 'ശരിയായ ഇന്ത്യൻ നിലവാരങ്ങൾ തിരയുന്നു...',
-    completenessLabel: 'ബണ്ടിൽ പൂർണ്ണത',
-    looksRight: 'ശരിയാണെന്ന് തോന്നുന്നു',
-    checkThis: 'ഇത് പരിശോധിക്കുക',
-    notSure: 'ഉറപ്പില്ല',
-    whyThis: 'എന്തുകൊണ്ട് ഇത്?',
-    currentVersion: 'നിലവിലെ പതിപ്പ്',
-    certificationLabel: 'സർട്ടിഫിക്കേഷൻ',
-    noRuleFound: 'ഞങ്ങളുടെ പട്ടികയിൽ നിയമമൊന്നും കണ്ടെത്തിയില്ല',
-    alsoNeededTitle: 'കൂടാതെ ആവശ്യമുള്ളവ',
-    saveBtn: 'സേവ് ചെയ്യുക',
-    downloadPdfBtn: 'ഡൗൺലോഡ് (PDF)',
-    copyListBtn: 'ലിസ്റ്റ് പകർത്തുക',
-  },
-  pa: {
-    navAsk: 'ਮਿਆਰ ਲੱਭੋ (Ask)',
-    navTender: 'ਟੈਂਡਰ ਚੈੱਕ ਕਰੋ',
-    navSaved: 'ਸੇਵ ਕੀਤੇ ਮਿਆਰ',
-    navHelp: 'ਮਦਦ (Help)',
-    askPrompt: 'ਤੁਸੀਂ ਕਿਹੜਾ ਉਤਪਾਦ ਜਾਂ ਵਸਤੂ ਖਰੀਦ ਰਹੇ ਹੋ?',
-    findButton: 'ਮਿਆਰ ਲੱਭੋ',
-    findingSpinner: 'ਸਹੀ ਭਾਰਤੀ ਮਿਆਰ ਲੱਭੇ ਜਾ ਰਹੇ ਹਨ...',
-    completenessLabel: 'ਬੰਡਲ ਸੰਪੂਰਨਤਾ',
-    looksRight: 'ਸਹੀ ਲੱਗਦਾ ਹੈ',
-    checkThis: 'ਇਸ ਦੀ ਜਾਂਚ ਕਰੋ',
-    notSure: 'ਪੱਕਾ ਨਹੀਂ',
-    whyThis: 'ਇਹ ਕਿਉਂ?',
-    currentVersion: 'ਮੌਜੂਦਾ ਸੰਸਕਰਣ',
-    certificationLabel: 'ਪ੍ਰਮਾਣੀਕਰਨ',
-    noRuleFound: 'ਸਾਡੀ ਸਾਰਣੀ ਵਿੱਚ ਕੋਈ ਨਿਯਮ ਨਹੀਂ ਮਿਲਿਆ',
-    alsoNeededTitle: 'ਨਾਲ ਲੋੜੀਂਦੇ ਮਿਆਰ',
-    saveBtn: 'ਸੇਵ ਕਰੋ',
-    downloadPdfBtn: 'ਡਾਊਨਲੋਡ (PDF)',
-    copyListBtn: 'ਸੂਚੀ ਕਾਪੀ ਕਰੋ',
-  },
-  or: {
-    navAsk: 'মানକ ଖୋଜନ୍ତୁ (Ask)',
-    navTender: 'ଟେଣ୍ଡର ଯାଞ୍ଚ କରନ୍ତୁ',
-    navSaved: 'ସଂରକ୍ଷିତ ମାନକ',
-    navHelp: 'ସହାୟତା (Help)',
-    askPrompt: 'ଆପଣ କେଉଁ ଉତ୍ପାଦ କିମ୍ବା ସାମଗ୍ରୀ କିଣୁଛନ୍ତି?',
-    findButton: 'ମାନକ ଖୋଜନ୍ତୁ',
-    findingSpinner: 'ସଠିକ୍ ଭାରତୀୟ ମାନକ ଖୋଜାଯାଉଛି...',
-    completenessLabel: 'ବଣ୍ଡଲ୍ ସମ୍ପୂର୍ଣ୍ଣତା',
-    looksRight: 'ଠିକ୍ ଲାଗୁଛି',
-    checkThis: 'ଏହାକୁ ଯାଞ୍ଚ କରନ୍ତୁ',
-    notSure: 'ନିଶ୍ଚିତ ନୁହେଁ',
-    whyThis: 'ଏହା କାହିଁକି?',
-    currentVersion: 'ବର୍ତ୍ତମାନ ସଂସ୍କରଣ',
-    certificationLabel: 'ପ୍ରମାଣପତ୍ର',
-    noRuleFound: 'ଆମ ତାଲିକାରେ କୌଣସି ନିୟମ ମିଳିଲା ନାହିଁ',
-    alsoNeededTitle: 'ଏହା ସହିତ ଆବଶ୍ୟକ ମାନକ',
-    saveBtn: 'ସଂରକ୍ଷଣ କରନ୍ତୁ',
-    downloadPdfBtn: 'ଡାଉନଲୋଡ୍ (PDF)',
-    copyListBtn: 'ତାଲିକା କପି କରନ୍ତୁ',
-  },
-  ur: {
-    navAsk: 'معیار تلاش کریں (Ask)',
-    navTender: 'ٹینڈر چیک کریں',
-    navSaved: 'محفوظ کردہ معیارات',
-    navHelp: 'مدد (Help)',
-    askPrompt: 'آپ کون سی مصنوعات یا اشیاء خرید رہے ہیں؟',
-    findButton: 'معیار تلاش کریں',
-    findingSpinner: 'درست ہندوستانی معیارات تلاش کیے جا رہے ہیں...',
-    completenessLabel: 'بنڈل کی تکمیل',
-    looksRight: 'درست لگتا ہے',
-    checkThis: 'اسے چیک کریں',
-    notSure: 'یقین نہیں',
-    whyThis: 'یہ کیوں؟',
-    currentVersion: 'موجودہ ورژن',
-    certificationLabel: 'سرٹیفیکیشن',
-    noRuleFound: 'ہماری جدول میں کوئی اصول نہیں ملا',
-    alsoNeededTitle: 'دیگر ضروری معیارات',
-    saveBtn: 'محفوظ کریں',
-    downloadPdfBtn: 'ڈاؤن لوڈ (PDF)',
-    copyListBtn: 'فہرست کاپی کریں',
+    copiedBtn: 'कॉपी हो गया!',
+    suggestCorrectionBtn: 'सुधार सुझाएं',
+    showDetailsBtn: 'विवरण देखें',
+    tenderUploadTitle: 'अपनी ड्राफ्ट निविदा फ़ाइल यहाँ अपलोड करें',
+    tenderUploadSub: 'सादा टेक्स्ट (.txt) निविदा अपलोड करें या नीचे से सैंपल चुनें:',
+    uploadTenderBtn: 'निविदा अपलोड करें',
+    downloadReportBtn: 'रिपोर्ट डाउनलोड करें',
+    fixGroupTitle: 'सुधार आवश्यक (Fix) — पुराना या गलत मानक',
+    missingGroupTitle: 'मानक अनुपस्थित (Missing) — कोई मानक नहीं दिया गया',
+    goodGroupTitle: 'सही है (Looks good) — वर्तमान और मान्य मानक',
+    savedSpecsTitle: 'मेरे सहेजे गए विनिर्देश (Saved Specs)',
+    savedSpecsAttentionBanner: 'सहेजे गए विनिर्देशों पर ध्यान देने की आवश्यकता है — मानक में बदलाव हुआ है',
+    helpTitle: 'उपयोग करने के 5 आसान चरण',
+    faqTitle: 'अक्सर पूछे जाने वाले प्रश्न (FAQ)',
   },
 };
 
+const dynamicUiCache = new Map<string, UiTranslationStrings>();
+const translationCache = new Map<string, string[]>();
+
 export function getUiStrings(langCode: string): UiTranslationStrings {
+  if (langCode === 'en') return DEFAULT_EN_STRINGS;
+  const cachedDynamic = dynamicUiCache.get(langCode);
+  if (cachedDynamic) return cachedDynamic;
   const partial = UI_DICTIONARY[langCode] || {};
   return {
     ...DEFAULT_EN_STRINGS,
@@ -330,21 +333,44 @@ export function getUiStrings(langCode: string): UiTranslationStrings {
   };
 }
 
-const translationCache = new Map<string, string[]>();
+export async function fetchLocalizedUiStrings(langCode: string): Promise<UiTranslationStrings> {
+  if (langCode === 'en') return DEFAULT_EN_STRINGS;
+  if (langCode === 'hi') return getUiStrings('hi');
+  const cached = dynamicUiCache.get(langCode);
+  if (cached) return cached;
+
+  const langObj = INDIAN_LANGUAGES.find((l) => l.code === langCode) || INDIAN_LANGUAGES[1];
+  const keys = Object.keys(DEFAULT_EN_STRINGS) as (keyof UiTranslationStrings)[];
+  const values = keys.map((k) => DEFAULT_EN_STRINGS[k]);
+
+  const res = await translateTextsToIndianLanguage(
+    values,
+    langObj.code,
+    `${langObj.nameEn} (${langObj.nameNative})`
+  );
+
+  const built: UiTranslationStrings = { ...DEFAULT_EN_STRINGS };
+  keys.forEach((k, idx) => {
+    built[k] = res.translations[idx] || DEFAULT_EN_STRINGS[k];
+  });
+  dynamicUiCache.set(langCode, built);
+  return built;
+}
 
 export async function translateTextsToIndianLanguage(
   texts: string[],
   targetLangCode: string,
-  targetLangName: string
+  targetLangName: string,
+  sourceLangCode: string = 'auto'
 ): Promise<{ translations: string[]; provider: string; error?: string }> {
-  if (targetLangCode === 'en' || texts.length === 0) {
-    return { translations: texts, provider: 'Identity (English)' };
+  if (texts.length === 0 || (targetLangCode === 'en' && sourceLangCode === 'en')) {
+    return { translations: texts, provider: 'Identity' };
   }
 
-  const cacheKey = `${targetLangCode}::${texts.join('||')}`;
+  const cacheKey = `${sourceLangCode}->${targetLangCode}::${texts.join('||')}`;
   const cached = translationCache.get(cacheKey);
   if (cached) {
-    return { translations: cached, provider: 'Cached Gemini Translation' };
+    return { translations: cached, provider: 'Cached Translation' };
   }
 
   try {
@@ -355,6 +381,7 @@ export async function translateTextsToIndianLanguage(
         texts,
         targetLangCode,
         targetLangName,
+        sourceLangCode,
       }),
     });
 
@@ -367,7 +394,7 @@ export async function translateTextsToIndianLanguage(
       translationCache.set(cacheKey, data.translations);
       return {
         translations: data.translations,
-        provider: data.provider || 'Gemini Server API',
+        provider: data.provider || 'Indian Language Translator',
       };
     }
     throw new Error('Unexpected translation response format');
@@ -378,4 +405,34 @@ export async function translateTextsToIndianLanguage(
       error: err instanceof Error ? err.message : 'Translation failed',
     };
   }
+}
+
+/**
+ * Detects if a query contains non-ASCII Indic/Perso-Arabic characters or non-English terms
+ * and translates it to English so the BIS retrieval pipeline works seamlessly in all 22 Indian languages.
+ */
+export async function translateQueryToEnglishForPipeline(rawQuery: string): Promise<{
+  englishQuery: string;
+  wasTranslated: boolean;
+}> {
+  const trimmed = rawQuery.trim();
+  if (!trimmed) return { englishQuery: '', wasTranslated: false };
+
+  // Check if query contains any non-Latin script characters (Devanagari, Bengali, Tamil, Telugu, Gujarati, Kannada, Malayalam, Gurmukhi, Odia, Urdu, Ol Chiki, etc.)
+  const hasIndicOrNonAscii = /[^\u0000-\u007F]/.test(trimmed);
+  if (!hasIndicOrNonAscii) {
+    return { englishQuery: trimmed, wasTranslated: false };
+  }
+
+  const res = await translateTextsToEnglish([trimmed]);
+  const english = res[0] || trimmed;
+  return {
+    englishQuery: english,
+    wasTranslated: english.toLowerCase() !== trimmed.toLowerCase(),
+  };
+}
+
+export async function translateTextsToEnglish(texts: string[]): Promise<string[]> {
+  const res = await translateTextsToIndianLanguage(texts, 'en', 'English', 'auto');
+  return res.translations;
 }

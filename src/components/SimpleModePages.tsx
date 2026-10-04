@@ -3,7 +3,9 @@ import { globalStore } from '../engine/dataset';
 import {
   getUiStrings,
   INDIAN_LANGUAGES,
+  translateQueryToEnglishForPipeline,
   translateTextsToIndianLanguage,
+  UiTranslationStrings,
 } from '../engine/indianLanguages';
 import { runPipeline, runTenderAudit } from '../engine/pipeline';
 import { DataMode, ReferenceRole, RetrievalMode, UserRole } from '../engine/types';
@@ -32,20 +34,21 @@ export interface SimpleModeProps {
   triggerRefresh: () => void;
   onNavigateSimple: (tab: 'ask' | 'tender' | 'saved' | 'help', query?: string) => void;
   targetLang?: string;
+  uiStrings?: UiTranslationStrings;
   onChangeTargetLang?: (code: string) => void;
   translateTriggerCount?: number;
 }
 
-function getOneWordReasonChip(role: ReferenceRole): string {
+function getOneWordReasonChip(role: ReferenceRole, ui?: UiTranslationStrings): string {
   switch (role) {
     case 'test_method':
-      return 'Test';
+      return ui?.chipTest || 'Test';
     case 'terminology':
-      return 'Terms';
+      return ui?.chipTerms || 'Terms';
     case 'safety':
-      return 'Safety';
+      return ui?.chipSafety || 'Safety';
     case 'installation':
-      return 'Install';
+      return ui?.chipInstall || 'Install';
     default:
       return 'Related';
   }
@@ -86,6 +89,7 @@ export function SimpleAskPage({
   presetDebugFake,
   triggerRefresh,
   targetLang = 'en',
+  uiStrings: propUiStrings,
   onChangeTargetLang,
   translateTriggerCount = 0,
 }: SimpleModeProps) {
@@ -93,6 +97,7 @@ export function SimpleAskPage({
     presetQuery ||
       'Supply of 50 mm nominal bore Medium grade galvanized iron (GI) mild steel tubes for municipal potable water supply'
   );
+  const [englishQueryOverlay, setEnglishQueryOverlay] = useState<string>('');
   const [clarificationChoice, setClarificationChoice] = useState<string>('');
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [showDetails, setShowDetails] = useState<boolean>(false);
@@ -105,7 +110,7 @@ export function SimpleAskPage({
   const [translatedMap, setTranslatedMap] = useState<Record<string, string>>({});
   const [translationError, setTranslationError] = useState<string | null>(null);
 
-  const uiStrings = getUiStrings(targetLang);
+  const uiStrings = propUiStrings || getUiStrings(targetLang);
   const activeLangObj =
     INDIAN_LANGUAGES.find((l) => l.code === targetLang) || INDIAN_LANGUAGES[0];
 
@@ -121,6 +126,19 @@ export function SimpleAskPage({
       setClarificationChoice('');
     }
   }, [presetQuery]);
+
+  // Automatically bridge any non-English Indian language query to English for retrieval
+  useEffect(() => {
+    let cancelled = false;
+    translateQueryToEnglishForPipeline(queryText).then((res) => {
+      if (!cancelled) {
+        setEnglishQueryOverlay(res.wasTranslated ? res.englishQuery : '');
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [queryText]);
 
   const exampleChips = [
     {
@@ -166,9 +184,13 @@ export function SimpleAskPage({
     setTimeout(() => setIsSearching(false), 180);
   };
 
+  const effectivePipelineQuery = englishQueryOverlay
+    ? `${queryText} ${englishQueryOverlay}`
+    : queryText;
+
   const { bundle, trace } = useMemo(
     () =>
-      runPipeline(queryText, {
+      runPipeline(effectivePipelineQuery, {
         retrievalMode,
         dataMode,
         clarificationAnswer: clarificationChoice || undefined,
@@ -176,7 +198,7 @@ export function SimpleAskPage({
         topK: 3,
       }),
     [
-      queryText,
+      effectivePipelineQuery,
       retrievalMode,
       dataMode,
       clarificationChoice,
@@ -455,14 +477,14 @@ export function SimpleAskPage({
               setQueryText(e.target.value);
               setClarificationChoice('');
             }}
-            placeholder="Describe item in English, हिंदी or Hinglish (e.g. 50 mm GI water pipe / पेयजल के लिए जीआई पाइप / lohe ka pipe)..."
+            placeholder={uiStrings.searchPlaceholder}
             className="flex-1 px-4 py-3.5 text-base bg-white border-2 border-slate-300 rounded-lg focus:outline-none focus:border-blue-900"
           />
           <button
             onClick={() => triggerSearchSpinner()}
             className="px-6 py-3.5 text-base font-bold text-white bg-blue-900 rounded-lg hover:bg-blue-950 transition-colors whitespace-nowrap cursor-pointer"
           >
-            {uiStrings.findButton} / मानक खोजें
+            {uiStrings.findButton}
           </button>
         </div>
 
@@ -480,8 +502,14 @@ export function SimpleAskPage({
               onClick={() => onChangeTargetLang && onChangeTargetLang('en')}
               className="text-xs font-semibold text-blue-900 underline cursor-pointer"
             >
-              Show English only
+              English
             </button>
+          </div>
+        )}
+
+        {englishQueryOverlay && (
+          <div className="text-xs text-slate-600">
+            <strong>Multilingual Query Understood As:</strong> {englishQueryOverlay}
           </div>
         )}
 
@@ -498,12 +526,21 @@ export function SimpleAskPage({
           <div className="text-xs text-rose-800 font-medium">{translationError}</div>
         )}
 
-        {/* Example Chips (English / Hindi / Hinglish) */}
+        {/* Example Chips (English / Hindi / Hinglish + Selected Indian Language Sample) */}
         <div className="space-y-1.5">
           <div className="text-xs font-semibold text-slate-600">
-            Or tap an example to try (English / हिंदी / Hinglish):
+            {uiStrings.exampleChipsLabel}
           </div>
           <div className="flex flex-wrap gap-2">
+            {targetLang !== 'en' && (
+              <button
+                type="button"
+                onClick={() => triggerSearchSpinner(activeLangObj.sampleQuery)}
+                className="px-3 py-2 text-sm rounded-lg border-2 border-blue-900 bg-blue-50 text-blue-950 font-bold text-left hover:bg-blue-100 cursor-pointer"
+              >
+                ★ {activeLangObj.nameNative}: {activeLangObj.sampleQuery.slice(0, 42)}...
+              </button>
+            )}
             {exampleChips.map((chip) => (
               <button
                 key={chip.label}
@@ -525,7 +562,7 @@ export function SimpleAskPage({
       {isSearching && (
         <div className="p-6 bg-white border border-slate-300 rounded-lg flex items-center justify-center gap-3 text-base font-medium text-slate-800">
           <Loader2 className="w-5 h-5 animate-spin text-blue-900" />
-          <span>Finding the right standards...</span>
+          <span>{uiStrings.findingSpinner}</span>
         </div>
       )}
 
@@ -679,10 +716,12 @@ export function SimpleAskPage({
                       <div className="flex items-start gap-2 text-amber-950 font-semibold">
                         <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-800" />
                         <span>
-                          Replaced <span className="font-mono">{prim.version_guard.input_is_id}</span>{' '}
-                          with <span className="font-mono">{prim.is_id}</span> ({prim.year}
+                          {uiStrings.replacedPrefix}{' '}
+                          <span className="font-mono">{prim.version_guard.input_is_id}</span>{' '}
+                          {uiStrings.withWord} <span className="font-mono">{prim.is_id}</span> (
+                          {prim.year}
                           {prim.version_guard.latest_amendment_no > 0
-                            ? `, Amendment ${prim.version_guard.latest_amendment_no}`
+                            ? `, ${uiStrings.amendmentWord} ${prim.version_guard.latest_amendment_no}`
                             : ''}
                           )
                         </span>
@@ -691,9 +730,9 @@ export function SimpleAskPage({
                       <div className="flex items-start gap-2 text-emerald-950 font-semibold">
                         <Check className="w-4 h-4 shrink-0 mt-0.5 text-emerald-700" />
                         <span>
-                          Current version ({prim.year})
+                          {uiStrings.currentVersion} ({prim.year})
                           {prim.version_guard.latest_amendment_no > 0
-                            ? `, Amendment ${prim.version_guard.latest_amendment_no} (${prim.version_guard.amendment_year})`
+                            ? `, ${uiStrings.amendmentWord} ${prim.version_guard.latest_amendment_no} (${prim.version_guard.amendment_year})`
                             : ''}
                         </span>
                       </div>
@@ -703,7 +742,7 @@ export function SimpleAskPage({
                   {/* Certification Line */}
                   <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
                     <div className="font-semibold text-slate-900">
-                      Certification:{' '}
+                      {uiStrings.certificationLabel}:{' '}
                       {prim.certification.matched ? (
                         <span>
                           {prim.certification.scheme === 'None'
@@ -711,7 +750,7 @@ export function SimpleAskPage({
                             : (prim.certification.scheme || '').replace(/_/g, ' ')}
                         </span>
                       ) : (
-                        <span>We couldn&apos;t find a rule in our table</span>
+                        <span>{uiStrings.noRuleFound}</span>
                       )}
                     </div>
                     {prim.certification.matched && (
@@ -771,7 +810,7 @@ export function SimpleAskPage({
                     )}
                   </div>
                   <span className="px-2.5 py-1 text-xs font-bold uppercase bg-white border border-slate-300 rounded text-blue-900">
-                    {getOneWordReasonChip(al.role)}
+                    {getOneWordReasonChip(al.role, uiStrings)}
                   </span>
                 </div>
               ))}
@@ -790,21 +829,21 @@ export function SimpleAskPage({
                 className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-slate-900 bg-slate-100 border border-slate-300 rounded-lg hover:bg-slate-200 cursor-pointer"
               >
                 <Bookmark className="w-4 h-4" />
-                <span>Save / सहेजें</span>
+                <span>{uiStrings.saveBtn}</span>
               </button>
               <button
                 onClick={handleDownloadPdfReport}
                 className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-slate-900 bg-slate-100 border border-slate-300 rounded-lg hover:bg-slate-200 cursor-pointer"
               >
                 <FileDown className="w-4 h-4" />
-                <span>Download PDF / रिपोर्ट</span>
+                <span>{uiStrings.downloadPdfBtn}</span>
               </button>
               <button
                 onClick={handleCopyList}
                 className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-slate-900 bg-slate-100 border border-slate-300 rounded-lg hover:bg-slate-200 cursor-pointer"
               >
                 <Copy className="w-4 h-4" />
-                <span>{copiedNotice ? 'Copied! / कॉपी हो गया' : 'Copy list / कॉपी करें'}</span>
+                <span>{copiedNotice ? uiStrings.copiedBtn : uiStrings.copyListBtn}</span>
               </button>
             </div>
 
@@ -813,7 +852,7 @@ export function SimpleAskPage({
                 onClick={() => setShowFeedback(!showFeedback)}
                 className="font-semibold text-slate-700 hover:text-slate-900 underline cursor-pointer"
               >
-                {showFeedback ? 'Hide feedback' : 'Suggest a correction'}
+                {showFeedback ? 'Hide feedback' : uiStrings.suggestCorrectionBtn}
               </button>
               <button
                 onClick={() => setShowDetails(!showDetails)}
@@ -824,7 +863,7 @@ export function SimpleAskPage({
                 ) : (
                   <ChevronRight className="w-4 h-4" />
                 )}
-                <span>Show details</span>
+                <span>{uiStrings.showDetailsBtn}</span>
               </button>
             </div>
           </div>
@@ -949,6 +988,7 @@ export function SimpleTenderPage({
   dataMode,
   retrievalMode,
   targetLang = 'en',
+  uiStrings: propUiStrings,
   onChangeTargetLang,
   translateTriggerCount = 0,
 }: SimpleModeProps) {
@@ -960,6 +1000,7 @@ export function SimpleTenderPage({
   const [isTranslating, setIsTranslating] = useState<boolean>(false);
   const [translatedLines, setTranslatedLines] = useState<Record<number, string>>({});
 
+  const uiStrings = propUiStrings || getUiStrings(targetLang);
   const activeLangObj =
     INDIAN_LANGUAGES.find((l) => l.code === targetLang) || INDIAN_LANGUAGES[0];
 
@@ -1084,16 +1125,16 @@ export function SimpleTenderPage({
         <Upload className="w-8 h-8 text-blue-900 mx-auto" />
         <div>
           <div className="text-base font-bold text-slate-900">
-            Drop your draft tender file here, or choose a file / अपनी निविदा फ़ाइल यहाँ अपलोड करें
+            {uiStrings.tenderUploadTitle}
           </div>
           <p className="text-sm text-slate-600 mt-0.5">
-            Supports plain text (.txt) draft tenders, or tap a sample tender below to test immediately:
+            {uiStrings.tenderUploadSub}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
           <label className="px-5 py-2.5 text-sm font-bold text-white bg-blue-900 rounded-lg hover:bg-blue-950 cursor-pointer">
-            Upload Tender / फ़ाइल चुनें
+            {uiStrings.uploadTenderBtn}
             <input
               type="file"
               accept=".txt"
@@ -1176,7 +1217,7 @@ export function SimpleTenderPage({
             className="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-900 bg-white border border-slate-300 rounded-lg hover:bg-slate-100 cursor-pointer"
           >
             <FileDown className="w-4 h-4" />
-            <span>Download Report / रिपोर्ट डाउनलोड करें</span>
+            <span>{uiStrings.downloadReportBtn}</span>
           </button>
         </div>
       </div>
@@ -1185,7 +1226,9 @@ export function SimpleTenderPage({
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-base font-bold text-rose-900">
           <AlertTriangle className="w-5 h-5 text-rose-700 shrink-0" />
-          <span>Fix ({fixLines.length}) — Outdated or Wrong Standard Cited</span>
+          <span>
+            {uiStrings.fixGroupTitle} ({fixLines.length})
+          </span>
         </div>
         {fixLines.length === 0 ? (
           <div className="p-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600">
@@ -1213,7 +1256,9 @@ export function SimpleTenderPage({
               <div className="p-3 bg-rose-50/70 border border-rose-200 rounded text-sm font-bold text-rose-950">
                 {ln.recommended_primary ? (
                   <span>
-                    Replace <span className="font-mono">{ln.cited_is_raw || 'cited code'}</span> with{' '}
+                    {uiStrings.replacedPrefix}{' '}
+                    <span className="font-mono">{ln.cited_is_raw || 'cited code'}</span>{' '}
+                    {uiStrings.withWord}{' '}
                     <span className="font-mono">
                       {ln.recommended_primary.is_id} ({ln.recommended_primary.year})
                     </span>{' '}
@@ -1233,7 +1278,9 @@ export function SimpleTenderPage({
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-base font-bold text-amber-900">
           <HelpCircle className="w-5 h-5 text-amber-700 shrink-0" />
-          <span>Missing ({missingLines.length}) — No Indian Standard Cited</span>
+          <span>
+            {uiStrings.missingGroupTitle} ({missingLines.length})
+          </span>
         </div>
         {missingLines.length === 0 ? (
           <div className="p-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600">
@@ -1253,6 +1300,11 @@ export function SimpleTenderPage({
                 </span>
               </div>
               <div className="text-sm text-slate-800">{ln.raw_text}</div>
+              {targetLang !== 'en' && translatedLines[ln.line_no] && (
+                <div className="p-2 bg-blue-50/70 border border-blue-200 rounded text-xs font-semibold text-blue-950">
+                  [{activeLangObj.nameNative}] {translatedLines[ln.line_no]}
+                </div>
+              )}
               {ln.recommended_primary && (
                 <div className="p-3 bg-amber-50/70 border border-amber-200 rounded text-sm font-bold text-amber-950">
                   Add{' '}
@@ -1271,7 +1323,9 @@ export function SimpleTenderPage({
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-base font-bold text-emerald-900">
           <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0" />
-          <span>Looks good ({goodLines.length}) — Current &amp; Valid</span>
+          <span>
+            {uiStrings.goodGroupTitle} ({goodLines.length})
+          </span>
         </div>
         {goodLines.map((ln) => (
           <div
@@ -1282,10 +1336,15 @@ export function SimpleTenderPage({
               <span>Item #{ln.line_no}</span>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                Looks good
+                {uiStrings.looksRight}
               </span>
             </div>
             <div className="text-sm text-slate-800">{ln.raw_text}</div>
+            {targetLang !== 'en' && translatedLines[ln.line_no] && (
+              <div className="p-2 bg-blue-50/70 border border-blue-200 rounded text-xs font-semibold text-blue-950">
+                [{activeLangObj.nameNative}] {translatedLines[ln.line_no]}
+              </div>
+            )}
             <div className="text-xs text-emerald-900 font-medium">{ln.finding_summary}</div>
           </div>
         ))}
@@ -1301,14 +1360,41 @@ export function SimpleSavedSpecsPage({
   role,
   triggerRefresh,
   onNavigateSimple,
+  targetLang = 'en',
+  uiStrings: propUiStrings,
 }: SimpleModeProps) {
   const [simNotice, setSimNotice] = useState<string | null>(null);
+  const [translatedSpecs, setTranslatedSpecs] = useState<Record<string, string>>({});
+  const uiStrings = propUiStrings || getUiStrings(targetLang);
+  const activeLangObj =
+    INDIAN_LANGUAGES.find((l) => l.code === targetLang) || INDIAN_LANGUAGES[0];
 
   const specsNeedingAttention = globalStore.watchList.filter(
     (sp) =>
       sp.saved_registry_version !== globalStore.registryVersion ||
       sp.affected_by_changelog_ids.length > 0
   );
+
+  useEffect(() => {
+    if (targetLang === 'en') {
+      setTranslatedSpecs({});
+      return;
+    }
+    const texts = globalStore.watchList.map((sp) => `${sp.title} — ${sp.query_text}`);
+    translateTextsToIndianLanguage(
+      texts,
+      activeLangObj.code,
+      `${activeLangObj.nameEn} (${activeLangObj.nameNative})`
+    ).then((res) => {
+      if (!res.error) {
+        const map: Record<string, string> = {};
+        globalStore.watchList.forEach((sp, idx) => {
+          map[sp.spec_id] = res.translations[idx] || '';
+        });
+        setTranslatedSpecs(map);
+      }
+    });
+  }, [targetLang, globalStore.watchList.length]);
 
   const handleSimulateChange = () => {
     const res = globalStore.simulateRevision({
@@ -1332,14 +1418,14 @@ export function SimpleSavedSpecsPage({
 
   return (
     <div className="space-y-6">
+      <h2 className="text-lg font-bold text-slate-900">{uiStrings.savedSpecsTitle}</h2>
       {/* Banner when N saved specs need attention */}
       {specsNeedingAttention.length > 0 ? (
         <div className="p-4 bg-amber-50 border-2 border-amber-400 rounded-lg flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 text-base font-bold text-amber-950">
             <AlertTriangle className="w-5 h-5 text-amber-800 shrink-0" />
             <span>
-              {specsNeedingAttention.length} saved{' '}
-              {specsNeedingAttention.length === 1 ? 'spec needs' : 'specs need'} attention — a cited standard has changed
+              {specsNeedingAttention.length} {uiStrings.savedSpecsAttentionBanner}
             </span>
           </div>
           <button
@@ -1385,17 +1471,22 @@ export function SimpleSavedSpecsPage({
                 {needsAttention ? (
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-100 text-amber-900 text-xs font-bold">
                     <AlertTriangle className="w-3.5 h-3.5" />
-                    Needs attention
+                    {uiStrings.checkThis}
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-100 text-emerald-900 text-xs font-bold">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    Looks right (Current)
+                    {uiStrings.looksRight}
                   </span>
                 )}
               </div>
 
               <p className="text-sm text-slate-700">{sp.query_text}</p>
+              {targetLang !== 'en' && translatedSpecs[sp.spec_id] && (
+                <div className="p-2 bg-blue-50/70 border border-blue-200 rounded text-xs font-semibold text-blue-950">
+                  [{activeLangObj.nameNative}] {translatedSpecs[sp.spec_id]}
+                </div>
+              )}
 
               <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs text-slate-600">
                 <div>
@@ -1422,11 +1513,19 @@ export function SimpleSavedSpecsPage({
 /**
  * SIMPLE MODE PAGE 4: HELP (5-step walkthrough and plain-language FAQ)
  */
-export function SimpleHelpPage({ onNavigateSimple }: SimpleModeProps) {
+export function SimpleHelpPage({
+  onNavigateSimple,
+  targetLang = 'en',
+  uiStrings: propUiStrings,
+}: SimpleModeProps) {
+  const uiStrings = propUiStrings || getUiStrings(targetLang);
+  const activeLangObj =
+    INDIAN_LANGUAGES.find((l) => l.code === targetLang) || INDIAN_LANGUAGES[0];
+
   const steps = [
     {
       step: 'Step 1',
-      title: 'Type what you are buying (in English, Hindi, or Hinglish)',
+      title: 'Type what you are buying (in any Indian language, English, or Hinglish)',
       desc: 'Go to "Ask" and enter your item description—such as "50 mm GI pipe for drinking water", "पेयजल जीआई पाइप", or "lohe ka pipe"—or tap one of the example chips.',
     },
     {
@@ -1470,18 +1569,43 @@ export function SimpleHelpPage({ onNavigateSimple }: SimpleModeProps) {
     },
   ];
 
+  const [translatedHelp, setTranslatedHelp] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (targetLang === 'en') {
+      setTranslatedHelp([]);
+      return;
+    }
+    const source = [
+      ...steps.map((s) => `${s.title}: ${s.desc}`),
+      ...faqs.map((f) => `${f.q} — ${f.a}`),
+    ];
+    translateTextsToIndianLanguage(
+      source,
+      activeLangObj.code,
+      `${activeLangObj.nameEn} (${activeLangObj.nameNative})`
+    ).then((res) => {
+      if (!res.error) {
+        setTranslatedHelp(res.translations);
+      }
+    });
+  }, [targetLang]);
+
   return (
     <div className="space-y-6">
       <div className="p-5 bg-white border border-slate-300 rounded-lg space-y-4">
-        <h2 className="text-lg font-bold text-slate-900">
-          5-Step Walkthrough / उपयोग करने के 5 आसान चरण
-        </h2>
+        <h2 className="text-lg font-bold text-slate-900">{uiStrings.helpTitle}</h2>
         <div className="space-y-3">
-          {steps.map((s) => (
-            <div key={s.step} className="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          {steps.map((s, idx) => (
+            <div key={s.step} className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
               <div className="text-xs font-bold uppercase text-blue-900">{s.step}</div>
-              <div className="text-base font-bold text-slate-900 mt-0.5">{s.title}</div>
-              <p className="text-sm text-slate-700 mt-1">{s.desc}</p>
+              <div className="text-base font-bold text-slate-900">{s.title}</div>
+              <p className="text-sm text-slate-700">{s.desc}</p>
+              {targetLang !== 'en' && translatedHelp[idx] && (
+                <div className="p-2 bg-blue-50/70 border border-blue-200 rounded text-xs font-semibold text-blue-950 mt-1">
+                  [{activeLangObj.nameNative}] {translatedHelp[idx]}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -1489,17 +1613,22 @@ export function SimpleHelpPage({ onNavigateSimple }: SimpleModeProps) {
           onClick={() => onNavigateSimple('ask')}
           className="px-5 py-2.5 text-sm font-bold text-white bg-blue-900 rounded-lg hover:bg-blue-950 cursor-pointer"
         >
-          Try Ask Now / अभी खोजें →
+          {uiStrings.findButton} →
         </button>
       </div>
 
       <div className="p-5 bg-white border border-slate-300 rounded-lg space-y-4">
-        <h2 className="text-lg font-bold text-slate-900">Frequently Asked Questions (FAQ)</h2>
+        <h2 className="text-lg font-bold text-slate-900">{uiStrings.faqTitle}</h2>
         <div className="space-y-3">
-          {faqs.map((f) => (
+          {faqs.map((f, idx) => (
             <div key={f.q} className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
               <div className="text-sm font-bold text-slate-900">{f.q}</div>
               <p className="text-sm text-slate-700">{f.a}</p>
+              {targetLang !== 'en' && translatedHelp[steps.length + idx] && (
+                <div className="p-2 bg-blue-50/70 border border-blue-200 rounded text-xs font-semibold text-blue-950 mt-1">
+                  [{activeLangObj.nameNative}] {translatedHelp[steps.length + idx]}
+                </div>
+              )}
             </div>
           ))}
         </div>

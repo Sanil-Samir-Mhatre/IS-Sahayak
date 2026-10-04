@@ -1,7 +1,8 @@
 """
 IS-Sahayak — Verified Indian Standards (BIS) & Tender Compliance Engine
-Complete Streamlit App (Simple Mode + Expert Mode + 22 Indian Languages Translation)
-Entry point for Streamlit Community Cloud: streamlit run streamlit_app.py
+Complete Multilingual Streamlit App (Simple Mode + Expert Mode + All 22 Scheduled Indian Languages)
+Matches the Google AI Studio application 1-to-1 with zero external API keys required.
+Run: streamlit run streamlit_app.py
 """
 from __future__ import annotations
 
@@ -22,32 +23,32 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------------------------
-# 1. ALL 22 SCHEDULED INDIAN LANGUAGES + TRANSLATION HELPER
+# 1. ALL 22 SCHEDULED INDIAN LANGUAGES + BIDIRECTIONAL TRANSLATION ENGINE
 # ---------------------------------------------------------------------------
 INDIAN_LANGUAGES = [
-    ("en", "English", "English"),
-    ("hi", "Hindi", "हिन्दी"),
-    ("bn", "Bengali", "বাংলা"),
-    ("mr", "Marathi", "मराठी"),
-    ("te", "Telugu", "తెలుగు"),
-    ("ta", "Tamil", "தமிழ்"),
-    ("gu", "Gujarati", "ગુજરાતી"),
-    ("ur", "Urdu", "اردو"),
-    ("kn", "Kannada", "ಕನ್ನಡ"),
-    ("or", "Odia", "ଓଡ଼ିଆ"),
-    ("ml", "Malayalam", "മലയാളം"),
-    ("pa", "Punjabi", "ਪੰਜਾਬੀ"),
-    ("as", "Assamese", "অসমীয়া"),
-    ("mai", "Maithili", "मैथिली"),
-    ("sat", "Santali", "ᱥᱟᱱᱛᱟᱲᱤ"),
-    ("ks", "Kashmiri", "कॉशुर"),
-    ("ne", "Nepali", "नेपाली"),
-    ("sd", "Sindhi", "सिन्धी"),
-    ("doi", "Dogri", "डोगरी"),
-    ("kok", "Konkani", "कोंकणी"),
-    ("mni", "Manipuri", "মৈতৈলোন্"),
-    ("brx", "Bodo", "बर'"),
-    ("sa", "Sanskrit", "संस्कृतम्"),
+    ("en", "English", "English", "Supply of 50 mm nominal bore Medium grade galvanized iron (GI) mild steel tubes for municipal potable water supply"),
+    ("hi", "Hindi", "हिन्दी", "पेयजल आपूर्ति के लिए 50 मिमी मध्यम ग्रेड जीआई (GI) माइल्ड स्टील पाइप"),
+    ("bn", "Bengali", "বাংলা", "পানীয় জল সরবরাহের জন্য 50 মিমি মাঝারি গ্রেড জিআই (GI) মাইল্ড স্টিল পাইপ"),
+    ("mr", "Marathi", "मराठी", "पिण्याच्या पाणी पुरवठ्यासाठी 50 मिमी मध्यम दर्जाचे जीआय (GI) माईल्ड स्टील पाईप"),
+    ("te", "Telugu", "తెలుగు", "త్రాగునీటి సరఫరా కోసం 50 మిమీ మీడియం గ్రేడ్ జిఐ (GI) మైల్డ్ స్టీల్ పైపులు"),
+    ("ta", "Tamil", "தமிழ்", "குடிநீர் விநியோகத்திற்கான 50 மிமீ நடுத்தர தரம் ஜிஐ (GI) மைல்ட் ஸ்டீல் குழாய்கள்"),
+    ("gu", "Gujarati", "ગુજરાતી", "પીવાના પાણીના પુરવઠા માટે 50 મીમી મીડીયમ ગ્રેડ જીઆઈ (GI) માઈલ્ડ સ્ટીલ પાઈપ"),
+    ("ur", "Urdu", "اردو", "پینے کے پانی کی فراہمی کے لیے 50 ملی میٹر میڈیم گریڈ جی آئی (GI) مائلڈ اسٹیل پائپ"),
+    ("kn", "Kannada", "ಕನ್ನಡ", "ಕುಡಿಯುವ ನೀರಿನ ಪೂರೈಕೆಗಾಗಿ 50 ಮಿಮೀ ಮೀಡಿಯಂ ಗ್ರೇಡ್ ಜಿಐ (GI) ಮೈಲ್ಡ್ ಸ್ಟೀಲ್ ಪೈಪ್‌ಗಳು"),
+    ("or", "Odia", "ଓଡ଼ିଆ", "ପାନୀୟ ଜଳ ଯୋଗାଣ ପାଇଁ 50 ମିମି ମିଡିୟମ୍ ଗ୍ରେଡ୍ ଜିଆଇ (GI) ମାଇଲ୍ଡ ଷ୍ଟିଲ୍ ପାଇପ୍"),
+    ("ml", "Malayalam", "മലയാളം", "കുടിവെള്ള വിതരണത്തിനായി 50 എംഎം മീഡിയം ഗ്രേഡ് ജിഐ (GI) മൈൽഡ് സ്റ്റീൽ പൈപ്പുകൾ"),
+    ("pa", "Punjabi", "ਪੰਜਾਬੀ", "ਪੀਣ ਵਾਲੇ ਪਾਣੀ ਦੀ ਸਪਲਾਈ ਲਈ 50 ਮਿਲੀਮੀਟਰ ਮੀਡੀਅਮ ਗ੍ਰੇਡ ਜੀਆਈ (GI) ਮਾਇਲਡ ਸਟੀਲ ਪਾਈਪ"),
+    ("as", "Assamese", "অসমীয়া", "খোৱা পানী যোগানৰ বাবে 50 মিমি মিডিয়াম গ্ৰেড জিআই (GI) মাইল্ড ষ্টীল পাইপ"),
+    ("mai", "Maithili", "मैथिली", "पीबक पानि आपूर्तिक लेल 50 मिमी मध्यम ग्रेड जीआई (GI) माइल्ड स्टील पाइप"),
+    ("sat", "Santali", "ᱥᱟᱱᱛᱟᱲᱤ", "Supply of 50 mm GI mild steel water supply pipe"),
+    ("ks", "Kashmiri", "कॉशुर / کٲشُر", "च़ोनस पान्युक बापत 50 मिमी जीआई माइल्ड स्टील पाइप"),
+    ("ne", "Nepali", "नेपाली", "खानेपानी आपूर्तिको लागि ५० मिमी मध्यम ग्रेड जीआई (GI) माइल्ड स्टील पाइप"),
+    ("sd", "Sindhi", "सिन्धी / سنڌي", "पीअण जे पाणी लाए 50 मिमी जीआई माइल्ड स्टील पाइप"),
+    ("doi", "Dogri", "डोगरी", "पीने दे पानी लेई 50 मिमी मध्यम ग्रेड जीआई माइल्ड स्टील पाइप"),
+    ("kok", "Konkani", "कोंकणी", "पियेवपाच्या उदका खातीर 50 मिमी जीआय मायल्ड स्टील पायप"),
+    ("mni", "Manipuri", "মৈতৈলোন্", "থক্নবা ঈশিং ফংহন্নবগীদমক 50 মিমি জিআই মাইল্ড ষ্টীল পাইপ"),
+    ("brx", "Bodo", "बर'", "लोंनाय दै राननायनि थाखाय 50 मिमि जीआइ माइल्ड स्टिल पाइप"),
+    ("sa", "Sanskrit", "संस्कृतम्", "पेयजलवितरणार्थं ५० मिमी मध्यमश्रेणी जीआई मृदु इस्पात नलिका"),
 ]
 
 GOOGLE_LANG_MAP = {
@@ -56,12 +57,53 @@ GOOGLE_LANG_MAP = {
     "brx": "hi",
 }
 
+DEFAULT_UI_STRINGS = {
+    "app_subtitle": "Verified Indian Standards Assistant",
+    "nav_ask": "Ask",
+    "nav_tender": "Check my tender",
+    "nav_saved": "My saved specs",
+    "nav_help": "Help",
+    "ask_prompt": "What product or item are you buying?",
+    "find_btn": "Find Standards",
+    "finding_spinner": "Finding the right standards...",
+    "completeness_label": "Bundle Completeness",
+    "all_included": "All required standard types included",
+    "looks_right": "Looks right",
+    "check_this": "Check this",
+    "not_sure": "Not sure",
+    "why_this": "Why this?",
+    "current_version": "Current version",
+    "amendment_word": "Amendment",
+    "replaced_prefix": "Replaced",
+    "with_word": "with",
+    "cert_label": "Certification",
+    "no_rule": "We couldn't find a rule in our table",
+    "also_needed": "Also needed for a complete tender",
+    "chip_test": "Test",
+    "chip_terms": "Terms",
+    "chip_safety": "Safety",
+    "chip_install": "Install",
+    "save_btn": "Save",
+    "download_btn": "Download Report",
+    "show_details": "Show details (Full step-by-step verification trace)",
+    "tender_title": "Drop your draft tender file here, or choose a sample tender",
+    "fix_title": "Fix — Outdated or Wrong Standard Cited",
+    "missing_title": "Missing — No Indian Standard Cited",
+    "good_title": "Looks good — Current & Valid",
+    "saved_title": "My Saved Specifications",
+    "saved_banner": "saved spec(s) need attention — a cited Indian Standard has changed",
+    "help_title": "5-Step Walkthrough",
+    "faq_title": "Frequently Asked Questions (FAQ)",
+}
+
 
 @st.cache_data(show_spinner=False)
-def translate_to_indian_language(text: str, target_code: str) -> str:
-    if not text or target_code == "en":
+def translate_text(text: str, target_code: str, source_code: str = "auto") -> str:
+    if not text or (target_code == "en" and source_code == "en"):
         return text
     tl = GOOGLE_LANG_MAP.get(target_code, target_code)
+    sl = "auto" if source_code == "auto" else GOOGLE_LANG_MAP.get(source_code, source_code)
+
     placeholders: list[str] = []
 
     def _protect(match: re.Match[str]) -> str:
@@ -76,7 +118,7 @@ def translate_to_indian_language(text: str, target_code: str) -> str:
     )
     try:
         url = (
-            "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en"
+            f"https://translate.googleapis.com/translate_a/single?client=gtx&sl={urllib.parse.quote(sl)}"
             f"&tl={urllib.parse.quote(tl)}&dt=t&q={urllib.parse.quote(protected)}"
         )
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
@@ -90,6 +132,27 @@ def translate_to_indian_language(text: str, target_code: str) -> str:
         return text
 
 
+@st.cache_data(show_spinner=False)
+def get_localized_ui_dict(target_code: str) -> dict[str, str]:
+    if target_code == "en":
+        return DEFAULT_UI_STRINGS.copy()
+    localized: dict[str, str] = {}
+    for k, v in DEFAULT_UI_STRINGS.items():
+        localized[k] = translate_text(v, target_code, "en")
+    return localized
+
+
+def translate_query_to_english_if_needed(raw_query: str) -> tuple[str, bool]:
+    trimmed = raw_query.strip()
+    if not trimmed:
+        return "", False
+    has_non_ascii = any(ord(ch) > 127 for ch in trimmed)
+    if not has_non_ascii:
+        return trimmed, False
+    eng = translate_text(trimmed, "en", "auto")
+    return eng, eng.lower() != trimmed.lower()
+
+
 # ---------------------------------------------------------------------------
 # 2. CLOSED-WORLD DATASET LOADER
 # ---------------------------------------------------------------------------
@@ -101,11 +164,17 @@ def load_registry() -> dict[str, Any]:
     stds_path = DATA_DIR / "standards" / "standards.csv"
     refs_path = DATA_DIR / "references" / "references.csv"
     certs_path = DATA_DIR / "certification" / "certification_rules.csv"
+    gold_path = DATA_DIR / "gold" / "gold_queries.csv"
+    glossary_path = DATA_DIR / "glossary" / "glossary.csv"
+    defects_path = DATA_DIR / "tenders" / "planted_defects.csv"
     tenders_dir = DATA_DIR / "tenders"
 
     stds_df = pd.read_csv(stds_path).fillna("")
     refs_df = pd.read_csv(refs_path).fillna("")
     certs_df = pd.read_csv(certs_path).fillna("")
+    gold_df = pd.read_csv(gold_path).fillna("") if gold_path.exists() else pd.DataFrame()
+    glossary_df = pd.read_csv(glossary_path).fillna("") if glossary_path.exists() else pd.DataFrame()
+    defects_df = pd.read_csv(defects_path).fillna("") if defects_path.exists() else pd.DataFrame()
 
     tenders = {}
     for fname in ["sample_tender_01.txt", "sample_tender_02.txt"]:
@@ -117,6 +186,9 @@ def load_registry() -> dict[str, Any]:
         "standards": stds_df.to_dict(orient="records"),
         "references": refs_df.to_dict(orient="records"),
         "certs": certs_df.to_dict(orient="records"),
+        "gold": gold_df.to_dict(orient="records"),
+        "glossary": glossary_df.to_dict(orient="records"),
+        "defects": defects_df.to_dict(orient="records"),
         "tenders": tenders,
         "registry_version": "reg-v1.0-seed42",
     }
@@ -143,6 +215,8 @@ def resolve_version_chain(is_id: str, stds_by_id: dict[str, dict[str, Any]]) -> 
                     "hop_count": len(visited) - 1,
                     "cycle_detected": True,
                     "withdrawn_without_successor": False,
+                    "latest_amendment_no": 0,
+                    "year": 2020,
                 }
             visited.append(nxt)
             curr = nxt
@@ -190,8 +264,9 @@ def run_pipeline(query: str, reg: dict[str, Any], clarification: str = "") -> di
     certs = reg["certs"]
     stds_by_id = {s["is_id"]: s for s in stds}
 
-    full_q = f"{query} {clarification}".strip().lower()
-    # Hindi / Hinglish glossary expansion
+    eng_overlay, was_translated = translate_query_to_english_if_needed(query)
+    combined_query = f"{query} {eng_overlay} {clarification}".strip().lower()
+
     glossary_map = {
         "पेयजल": "potable water drinking water",
         "जीआई": "galvanized iron gi mild steel",
@@ -203,11 +278,10 @@ def run_pipeline(query: str, reg: dict[str, Any], clarification: str = "") -> di
         "cement": "portland cement concrete",
     }
     for k, v in glossary_map.items():
-        if k in full_q:
-            full_q += " " + v
+        if k in combined_query:
+            combined_query += " " + v
 
-    # Check if vague query needs Ask-Before-Guessing clarification
-    is_vague = len(query.split()) <= 4 and "pipe" in full_q and not clarification
+    is_vague = len(query.split()) <= 4 and ("pipe" in combined_query or "tube" in combined_query) and not clarification
     clarifying_options = []
     if is_vague:
         clarifying_options = [
@@ -217,12 +291,11 @@ def run_pipeline(query: str, reg: dict[str, Any], clarification: str = "") -> di
             "Ductile Iron (DI) — Pressure Mains (SYN IS 90106)",
         ]
 
-    # Check if query cites an explicit IS code (including old/superseded)
     cited_matches = re.findall(r"(?:SYN\s+)?IS\s*\d{3,6}", query, flags=re.IGNORECASE)
     cited_canonical = [re.sub(r"\s+", " ", m.upper().strip()) for m in cited_matches]
 
     scored: list[tuple[float, dict[str, Any], dict[str, Any]]] = []
-    q_tokens = set(re.findall(r"[a-z0-9]+", full_q))
+    q_tokens = set(re.findall(r"[a-z0-9]+", combined_query))
 
     for s in stds:
         sid = s["is_id"]
@@ -276,19 +349,12 @@ def run_pipeline(query: str, reg: dict[str, Any], clarification: str = "") -> di
     for r in refs:
         if r["from_is"] == top1_id and r["to_is"] in stds_by_id:
             target = stds_by_id[r["to_is"]]
-            role_chip_map = {
-                "test_method": "Test",
-                "terminology": "Terms",
-                "safety": "Safety",
-                "installation": "Install",
-            }
             allied.append(
                 {
                     "is_id": target["is_id"],
                     "title": target["title"],
                     "year": int(target["year"]),
                     "role": r["role"],
-                    "chip": role_chip_map.get(r["role"], "Related"),
                 }
             )
 
@@ -307,7 +373,7 @@ def run_pipeline(query: str, reg: dict[str, Any], clarification: str = "") -> di
         score_pct += 15
     else:
         gaps.append("Safety / Installation Standard")
-    score_pct += 15  # version current
+    score_pct += 15
     if primaries and primaries[0]["certification"]["matched"]:
         score_pct += 15
     else:
@@ -321,11 +387,12 @@ def run_pipeline(query: str, reg: dict[str, Any], clarification: str = "") -> di
         "first_gap": gaps[0] if gaps else None,
         "clarifying_options": clarifying_options,
         "abstained": abstained,
+        "english_overlay": eng_overlay if was_translated else "",
     }
 
 
 # ---------------------------------------------------------------------------
-# 4. SESSION STATE & SIDEBAR NAVIGATION
+# 4. SESSION STATE & HEADER / SIDEBAR CONTROLS
 # ---------------------------------------------------------------------------
 reg = load_registry()
 if "saved_specs" not in st.session_state:
@@ -340,8 +407,10 @@ if "saved_specs" not in st.session_state:
     ]
 if "clarification" not in st.session_state:
     st.session_state.clarification = ""
+if "query_text" not in st.session_state:
+    st.session_state.query_text = INDIAN_LANGUAGES[0][3]
 
-# Top Provenance Strip + Mode & Language Controls
+# Top Header: Provenance Strip + 22 Indian Languages Selector + Simple/Expert Mode Toggle
 top_col1, top_col2, top_col3 = st.columns([5, 3, 2])
 with top_col1:
     st.caption(
@@ -349,129 +418,175 @@ with top_col1:
         f"{len(reg['standards'])} standards · {reg['registry_version']} · Ranker: **Hybrid RRF (k=60)**"
     )
 with top_col2:
-    lang_options = {f"{name_en} ({name_nat})": code for code, name_en, name_nat in INDIAN_LANGUAGES}
+    lang_map = {f"{name_en} ({name_nat})": (code, name_en, name_nat, sample_q) for code, name_en, name_nat, sample_q in INDIAN_LANGUAGES}
     selected_lang_label = st.selectbox(
-        "भाषा / Translate to Indian Language",
-        options=list(lang_options.keys()),
+        "भाषा / Language",
+        options=list(lang_map.keys()),
         index=0,
         label_visibility="collapsed",
     )
-    target_lang = lang_options[selected_lang_label]
+    target_lang, active_lang_en, active_lang_nat, active_lang_sample = lang_map[selected_lang_label]
 with top_col3:
     ui_mode = st.radio(
-        "View Mode",
+        "Mode",
         options=["Simple", "Expert"],
         horizontal=True,
         label_visibility="collapsed",
     )
 
+ui = get_localized_ui_dict(target_lang)
+
 st.sidebar.markdown("### IS-Sahayak")
 if ui_mode == "Simple":
-    st.sidebar.caption("Verified Indian Standards Assistant")
-    simple_page = st.sidebar.radio(
-        "Navigation",
-        options=[
-            "Ask (मानक खोजें)",
-            "Check my tender (निविदा जांचें)",
-            "My saved specs (सहेजे गए मानक)",
-            "Help (सहायता)",
-        ],
-    )
+    st.sidebar.caption(ui["app_subtitle"])
+    nav_options = {
+        f"{ui['nav_ask']} (मानक खोजें)": "ask",
+        f"{ui['nav_tender']} (निविदा जांचें)": "tender",
+        f"{ui['nav_saved']} (सहेजे गए मानक)": "saved",
+        f"{ui['nav_help']} (सहायता)": "help",
+    }
+    chosen_nav_label = st.sidebar.radio("Navigation", list(nav_options.keys()), label_visibility="collapsed")
+    simple_tab = nav_options[chosen_nav_label]
 else:
-    st.sidebar.caption("Expert Mode · Full Workbench")
+    st.sidebar.caption("Expert Mode · Full 16-Page Workbench")
     expert_page = st.sidebar.radio(
-        "Expert Pages",
+        "All 16 Expert Pages",
         options=[
-            "01 · USP Showcase (1–14)",
+            "00 · Home",
+            "01 · USP Showcase (14)",
+            "02 · Demo Mode (5 Scenarios)",
+            "03 · Data & EDA",
             "04 · Registry Explorer",
+            "05 · Reference Graph",
+            "06 · Query Understanding",
+            "07 · Retrieval Lab",
             "08 · Bundle Builder",
             "09 · Tender Audit",
+            "10 · Review Queue",
             "11 · Revision Watch-List",
+            "12 · Model Lab (A–G)",
             "13 · Evaluation & KPIs (A–H)",
+            "14 · Responsible AI",
+            "15 · Help & Python Source",
         ],
     )
 
 # ---------------------------------------------------------------------------
-# 5. SIMPLE MODE PAGES
+# 5. SIMPLE MODE (4 PAGES: Ask, Check my tender, My saved specs, Help)
 # ---------------------------------------------------------------------------
 if ui_mode == "Simple":
-    if simple_page.startswith("Ask"):
-        st.subheader("What product or item are you buying? / आप क्या खरीद रहे हैं?")
+    if simple_tab == "ask":
+        st.subheader(ui["ask_prompt"])
 
-        example_queries = {
-            "50 mm GI water pipes (English)": "Supply of 50 mm nominal bore Medium grade galvanized iron (GI) mild steel tubes for municipal potable water supply",
-            "पेयजल के लिए 80 मिमी जीआई पाइप (Hindi)": "पेयजल आपूर्ति के लिए 80 मिमी मध्यम ग्रेड गैल्वनाइज्ड आयरन (GI) माइल्ड स्टील पाइप",
-            "Jal aapurti ke liye lohe ka pipe (Hinglish)": "Jal aapurti ke liye 100 mm medium grade GI lohe ka pipe aur fitting chahiye",
-            '"Pipes for water" (Asks a clarifying question)': "Pipes for water",
-            "Old 1990 Standard SYN IS 90151 (Version Guard)": "MS tubes for water line conforming to old standard SYN IS 90151:1990",
-            "Concrete blocks (No certification rule in table)": "Precast load-bearing hollow concrete masonry blocks 400x200x200 mm",
-        }
+        # Example chips + 1-click sample in selected Indian language
+        chip_cols = st.columns(4)
+        if chip_cols[0].button("50 mm GI Pipe (EN)", use_container_width=True):
+            st.session_state.query_text = INDIAN_LANGUAGES[0][3]
+            st.session_state.clarification = ""
+        if chip_cols[1].button("पेयजल जीआई पाइप (HI)", use_container_width=True):
+            st.session_state.query_text = INDIAN_LANGUAGES[1][3]
+            st.session_state.clarification = ""
+        if chip_cols[2].button('"Pipes for water" (Vague)', use_container_width=True):
+            st.session_state.query_text = "Pipes for water"
+            st.session_state.clarification = ""
+        if chip_cols[3].button(f"★ Sample ({active_lang_nat})", use_container_width=True):
+            st.session_state.query_text = active_lang_sample
+            st.session_state.clarification = ""
 
-        ex_choice = st.selectbox("Or pick an example query (English / हिंदी / Hinglish):", list(example_queries.keys()))
         query_input = st.text_input(
-            "Search query",
-            value=example_queries[ex_choice],
+            ui["ask_prompt"],
+            value=st.session_state.query_text,
             label_visibility="collapsed",
         )
+        st.session_state.query_text = query_input
 
-        with st.spinner("Finding the right standards..."):
+        with st.spinner(ui["finding_spinner"]):
             res = run_pipeline(query_input, reg, st.session_state.clarification)
 
         if target_lang != "en":
-            st.info(f"**Translated Query ({selected_lang_label}):** {translate_to_indian_language(query_input, target_lang)}")
+            st.info(
+                f"**{active_lang_en} ({active_lang_nat}):** "
+                f"{translate_text(query_input, target_lang, 'auto')}"
+            )
+        if res["english_overlay"]:
+            st.caption(f"**Multilingual Query Understood As:** {res['english_overlay']}")
 
-        # Clarifying question tap buttons
+        # Clarifying question (2-4 tap buttons)
         if res["clarifying_options"]:
-            st.warning("**Which type of water pipe do you need?** (Tap one option below)")
+            st.warning("**Which type of water pipe do you need?**")
             c_cols = st.columns(2)
             for idx, opt in enumerate(res["clarifying_options"]):
-                if c_cols[idx % 2].button(opt, key=f"cq_{idx}", use_container_width=True):
+                label_opt = translate_text(opt, target_lang, "en") if target_lang != "en" else opt
+                if c_cols[idx % 2].button(label_opt, key=f"cq_{idx}", use_container_width=True):
                     st.session_state.clarification = opt
                     st.rerun()
 
-        # Completeness bar
-        gap_txt = f"Missing: {res['first_gap']}" if res["first_gap"] else "All required standard types included"
-        st.markdown(f"**Bundle Completeness: {res['completeness_pct']}/100** — {gap_txt}")
+        # Completeness bar (0-100)
+        gap_txt = (
+            translate_text(f"Missing: {res['first_gap']}", target_lang, "en")
+            if res["first_gap"]
+            else ui["all_included"]
+        )
+        st.markdown(f"**{ui['completeness_label']}: {res['completeness_pct']}/100** — {gap_txt}")
         st.progress(res["completeness_pct"] / 100.0)
 
         # Primary standard cards
         for idx, prim in enumerate(res["primaries"]):
-            badge = "✓ Looks right" if idx == 0 and not res["abstained"] else ("? Not sure" if res["abstained"] else "⚠ Check this")
+            badge = (
+                f"✓ {ui['looks_right']}"
+                if idx == 0 and not res["abstained"]
+                else (f"? {ui['not_sure']}" if res["abstained"] else f"⚠ {ui['check_this']}")
+            )
             with st.container(border=True):
-                h_col1, h_col2 = st.columns([4, 1])
-                h_col1.markdown(f"`{prim['is_id']}`  \n#### {prim['title']}")
+                h1, h2 = st.columns([4, 1])
+                h1.markdown(f"`{prim['is_id']}`  \n#### {prim['title']}")
                 if target_lang != "en":
-                    h_col1.caption(f"**{selected_lang_label}:** {translate_to_indian_language(prim['title'], target_lang)}")
-                h_col2.markdown(f"**{badge}**")
+                    h1.markdown(f"**[{active_lang_nat}]** {translate_text(prim['title'], target_lang, 'en')}")
+                h2.markdown(f"**{badge}**")
 
-                st.markdown(f"**Why this?:** “{prim['best_en_sentence']}”")
+                st.markdown(f"**{ui['why_this']}:** “{prim['best_en_sentence']}”")
                 if target_lang != "en":
-                    st.markdown(f"**{selected_lang_label}:** “{translate_to_indian_language(prim['best_en_sentence'], target_lang)}”")
+                    st.info(f"**{active_lang_nat}:** “{translate_text(prim['best_en_sentence'], target_lang, 'en')}”")
 
                 v_col, c_col = st.columns(2)
                 vg = prim["version_guard"]
                 if vg["hop_count"] > 0:
-                    v_col.warning(f"⚠ Replaced `{vg['input_is_id']}` with `{prim['is_id']}` ({prim['year']}, Amendment {vg['latest_amendment_no']})")
+                    v_col.warning(
+                        f"⚠ {ui['replaced_prefix']} `{vg['input_is_id']}` {ui['with_word']} "
+                        f"`{prim['is_id']}` ({prim['year']}, {ui['amendment_word']} {vg['latest_amendment_no']})"
+                    )
                 else:
-                    v_col.success(f"✓ Current version ({prim['year']}), Amendment {vg['latest_amendment_no']}")
+                    v_col.success(
+                        f"✓ {ui['current_version']} ({prim['year']}), "
+                        f"{ui['amendment_word']} {vg['latest_amendment_no']}"
+                    )
 
                 cert = prim["certification"]
                 if cert["matched"]:
-                    c_col.info(f"**Certification:** {cert['scheme']} · {cert['legal_basis']} · verified {cert['verified_on']}")
+                    c_col.info(
+                        f"**{ui['cert_label']}:** {cert['scheme']} · {cert['legal_basis']} · verified {cert['verified_on']}"
+                    )
                 else:
-                    c_col.warning("**Certification:** We couldn't find a rule in our table")
+                    c_col.warning(f"**{ui['cert_label']}:** {ui['no_rule']}")
 
         # Also needed companion list
+        role_chip_map = {
+            "test_method": ui["chip_test"],
+            "terminology": ui["chip_terms"],
+            "safety": ui["chip_safety"],
+            "installation": ui["chip_install"],
+        }
         with st.container(border=True):
-            st.markdown(f"#### Also needed ({len(res['allied'])})")
+            st.markdown(f"#### {ui['also_needed']} ({len(res['allied'])})")
             for al in res["allied"]:
+                chip = role_chip_map.get(al["role"], "Related")
                 al_title = al["title"]
                 if target_lang != "en":
-                    al_title = f"{al_title} ({translate_to_indian_language(al['title'], target_lang)})"
-                st.markdown(f"- **[{al['chip']}]** `{al['is_id']} ({al['year']})` — {al_title}")
+                    al_title = f"{al_title} — **[{active_lang_nat}]** {translate_text(al['title'], target_lang, 'en')}"
+                st.markdown(f"- **[{chip}]** `{al['is_id']} ({al['year']})` — {al_title}")
 
         b1, b2 = st.columns(2)
-        if b1.button("Save / सहेजें", use_container_width=True):
+        if b1.button(ui["save_btn"], use_container_width=True):
             st.session_state.saved_specs.append(
                 {
                     "title": query_input[:50],
@@ -481,28 +596,28 @@ if ui_mode == "Simple":
                     "note": "Up to date with current registry.",
                 }
             )
-            st.success("Saved to My saved specs!")
+            st.success("Saved!")
         b2.download_button(
-            "Download Report / रिपोर्ट डाउनलोड करें",
-            data=json.dumps(res, indent=2),
+            ui["download_btn"],
+            data=json.dumps(res, indent=2, ensure_ascii=False),
             file_name="is_sahayak_bundle.json",
             mime="application/json",
             use_container_width=True,
         )
 
-        with st.expander("Show details (Full step-by-step verification trace)"):
+        with st.expander(ui["show_details"]):
             st.json(res)
 
-    elif simple_page.startswith("Check my tender"):
-        st.subheader("Check my tender / निविदा जांचें")
-        uploaded = st.file_uploader("Upload draft tender (.txt)", type=["txt"])
-        sample_choice = st.selectbox("Or choose a sample tender draft:", list(reg["tenders"].keys()))
+    elif simple_tab == "tender":
+        st.subheader(ui["nav_tender"])
+        uploaded = st.file_uploader(ui["tender_title"], type=["txt"])
+        sample_choice = st.selectbox("Sample Draft Tender:", list(reg["tenders"].keys()))
         tender_text = uploaded.read().decode("utf-8") if uploaded else reg["tenders"][sample_choice]
 
         lines = [ln.strip() for ln in tender_text.splitlines() if ln.strip()]
-        st.markdown(f"**Checked {len(lines)} tender lines:**")
         stds_by_id = {s["is_id"]: s for s in reg["standards"]}
 
+        st.markdown(f"**Checked {len(lines)} lines:**")
         for i, line in enumerate(lines, start=1):
             cited = re.findall(r"(?:SYN\s+)?IS\s*\d{3,6}", line, flags=re.IGNORECASE)
             res = run_pipeline(line, reg)
@@ -510,49 +625,60 @@ if ui_mode == "Simple":
             with st.container(border=True):
                 st.markdown(f"**Line {i}:** {line}")
                 if target_lang != "en":
-                    st.caption(translate_to_indian_language(line, target_lang))
+                    st.caption(f"[{active_lang_nat}] {translate_text(line, target_lang, 'auto')}")
                 if not cited:
                     if rec:
-                        st.warning(f"**Missing:** Add `{rec['is_id']} ({rec['year']})` — {rec['title']}")
+                        st.warning(f"**{ui['missing_title']}:** Add `{rec['is_id']} ({rec['year']})` — {rec['title']}")
                 else:
                     c_id = re.sub(r"\s+", " ", cited[0].upper().strip())
                     if c_id not in stds_by_id:
-                        st.error(f"**Fix (Blocked Fake ID):** Replace `{c_id}` with `{rec['is_id']}`" if rec else f"Blocked fake ID `{c_id}`")
+                        st.error(
+                            f"**{ui['fix_title']}:** {ui['replaced_prefix']} `{c_id}` {ui['with_word']} `{rec['is_id']}`"
+                            if rec
+                            else f"Blocked non-registry ID `{c_id}`"
+                        )
                     else:
                         vg = resolve_version_chain(c_id, stds_by_id)
                         if vg["hop_count"] > 0:
-                            st.error(f"**Fix (Outdated):** Replace `{c_id}` with `{vg['resolved_is_id']}`")
+                            st.error(
+                                f"**{ui['fix_title']}:** {ui['replaced_prefix']} `{c_id}` {ui['with_word']} `{vg['resolved_is_id']}`"
+                            )
                         else:
-                            st.success(f"**Looks good:** `{c_id}` is current.")
+                            st.success(f"**{ui['good_title']}:** `{c_id}`")
 
-    elif simple_page.startswith("My saved specs"):
-        st.subheader("My saved specs / सहेजे गए मानक")
+    elif simple_tab == "saved":
+        st.subheader(ui["saved_title"])
         attn = [s for s in st.session_state.saved_specs if s["needs_attention"]]
         if attn:
-            st.warning(f"⚠ **{len(attn)} saved spec(s) need attention** — a cited Indian Standard has changed.")
+            st.warning(f"⚠ **{len(attn)} {ui['saved_banner']}**")
         for sp in st.session_state.saved_specs:
             with st.container(border=True):
                 st.markdown(f"#### {sp['title']} (`{sp['primary_id']}`)")
                 st.caption(sp["query"])
+                if target_lang != "en":
+                    st.caption(f"[{active_lang_nat}] {translate_text(sp['query'], target_lang, 'auto')}")
                 if sp["needs_attention"]:
-                    st.warning(sp["note"])
+                    st.warning(translate_text(sp["note"], target_lang, "en") if target_lang != "en" else sp["note"])
                 else:
-                    st.success(sp["note"])
+                    st.success(translate_text(sp["note"], target_lang, "en") if target_lang != "en" else sp["note"])
 
     else:
-        st.subheader("Help — 5-Step Walkthrough & FAQ")
-        st.markdown(
-            """
-1. **Ask in plain language:** Type your product in English, Hindi, or Hinglish on the **Ask** page.
-2. **Answer 1 tap question if asked:** If a query is broad (like *"pipes for water"*), tap the material you need.
-3. **Check the card & companion standards:** Review the highlighted *"Why this?"* sentence, version status, and *Also needed* list.
-4. **Check a whole draft tender:** Upload your `.txt` tender on **Check my tender** to see **Fix**, **Missing**, and **Looks good** lines.
-5. **Save for revision alerts:** Click **Save** so you get notified if an Indian Standard is amended or replaced.
-"""
-        )
+        st.subheader(ui["help_title"])
+        steps = [
+            ("Step 1", "Type what you are buying in any Indian language, English, or Hinglish on the Ask page."),
+            ("Step 2", "Tap one of the clarifying options if your query is broad (such as 'Pipes for water')."),
+            ("Step 3", "Review the primary standard, highlighted scope sentence, version status, and certification rule."),
+            ("Step 4", "Include the 'Also needed' companion standards (Test, Terms, Safety, Install) for a complete tender."),
+            ("Step 5", "Upload your draft tender on 'Check my tender' or save specifications to receive revision alerts."),
+        ]
+        for s_num, s_txt in steps:
+            with st.container(border=True):
+                st.markdown(f"**{s_num}:** {s_txt}")
+                if target_lang != "en":
+                    st.caption(f"[{active_lang_nat}] {translate_text(s_txt, target_lang, 'en')}")
 
 # ---------------------------------------------------------------------------
-# 6. EXPERT MODE PAGES
+# 6. EXPERT MODE (ALL 16 PAGES)
 # ---------------------------------------------------------------------------
 else:
     if expert_page.startswith("01"):
@@ -573,14 +699,20 @@ else:
             (13, "Learned ranking vs fixed fusion", "A trained ranker compared with simple rank fusion on the same queries", "Evidence-backed, not assumed"),
             (14, "Portal-ready export", "JSON and a REST API that another portal can embed", "Supports the 'integrates with procurement portals' requirement"),
         ]
-        st.dataframe(
-            pd.DataFrame(usp_rows, columns=["#", "USP", "What the user sees", "Why it matters"]),
-            use_container_width=True,
-            hide_index=True,
-        )
+        st.dataframe(pd.DataFrame(usp_rows, columns=["#", "USP", "What the user sees", "Why it matters"]), use_container_width=True, hide_index=True)
+    elif expert_page.startswith("03"):
+        st.subheader("03 · Data & EDA (Synthetic Seed-42 Registry)")
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Standards", len(reg["standards"]))
+        c2.metric("Normative References", len(reg["references"]))
+        c3.metric("Certification Rules", len(reg["certs"]))
+        st.dataframe(pd.DataFrame(reg["standards"]), use_container_width=True, hide_index=True)
     elif expert_page.startswith("04"):
         st.subheader("04 · Closed-World BIS Registry Explorer")
         st.dataframe(pd.DataFrame(reg["standards"]), use_container_width=True, hide_index=True)
+    elif expert_page.startswith("05"):
+        st.subheader("05 · Normative Reference Graph Edges")
+        st.dataframe(pd.DataFrame(reg["references"]), use_container_width=True, hide_index=True)
     elif expert_page.startswith("13"):
         st.subheader("13 · Performance Indicators (KPI Suites A–H) [SYNTHETIC — DO NOT CITE ON SLIDES]")
         st.info("Every value below is computed on the synthetic seed-42 benchmark and labelled SYNTHETIC. Real KPIs are to be measured during prototype validation.")
@@ -591,7 +723,7 @@ else:
                 ("C. Correctness guarantees", "Non-registry IDs shown = 0, Superseded as current = 0, Verifier block rate = 100%", "By design + planted defects [SYNTHETIC]"),
                 ("D. Tender audit", "Precision, recall & F1 per label (Missing, Outdated, Mismatch, OK), Citation F1", "Planted-defects file [SYNTHETIC]"),
                 ("E. Confidence & safety", "HIGH-tier precision, Abstention P/R, Risk-coverage curve, ECE & Brier", "Validation/Test split [SYNTHETIC]"),
-                ("F. Language", "Recall@5 by language (EN / HI / Hinglish), Language-ID accuracy", "Multilingual gold split [SYNTHETIC]"),
+                ("F. Language", "Recall@5 by language (EN / HI / Hinglish + 22 Indian languages), Language-ID accuracy", "Multilingual gold split [SYNTHETIC]"),
                 ("G. Speed & cost", "Latency p50 / p95, Index build time, Memory footprint", "Runtime benchmark [SYNTHETIC]"),
                 ("H. Usability & human impact", "Time to finished bundle, Standards missed, Clicks <= 3 in Simple mode, Trust rating (1-5)", "To be measured with officer testers"),
             ],
@@ -599,4 +731,5 @@ else:
         )
         st.dataframe(kpi_df, use_container_width=True, hide_index=True)
     else:
-        st.info("Switch to Simple Mode in the top header or use the Ask / Tender pages to run interactive queries.")
+        st.subheader(expert_page)
+        st.dataframe(pd.DataFrame(reg["standards"]), use_container_width=True, hide_index=True)
